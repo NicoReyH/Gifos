@@ -51,9 +51,15 @@
   }
 }
 
-@media only screen and (min-width: $max-mobile) {
+@media only screen and (min-width: 769px) {
   .burguer-menu {
     display: none;
+  }
+}
+
+@media only screen and (min-width: $min-desktop) {
+  .header {
+    margin-bottom: 80px;
   }
 }
 

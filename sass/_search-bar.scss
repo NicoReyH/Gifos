@@ -7,11 +7,42 @@
   }
 
   .search-bar {
+    position: relative;
+    color: #000;
+
     input {
       width: 90%;
       padding: 15px 40px;
       border: 1px solid $purple;
       border-radius: 25px;
+      font-family: $roboto;
+      font-size: bold;
+
+      &::placeholder {
+        color: $active;
+        padding: 15px 0;
+      }
     }
+    &:after {
+      content: url("../assets/icon-search.svg");
+      position: absolute;
+      right: 10%;
+      top: 27%;
+    }
+  }
+}
+
+@media only screen and (min-width: $min-desktop) {
+  .search-bar-container {
+    .search-bar-img {
+      img {
+        width: 35%;
+      }
+    }
+  }
+
+  .search-bar {
+    margin: 0 auto;
+    width: 50%;
   }
 }
