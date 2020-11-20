@@ -1,3 +1,3 @@
 # Gifos
 
-Front-end project using Giphy API
+## Front-end project using Giphy API

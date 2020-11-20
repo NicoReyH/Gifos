@@ -1,0 +1,17 @@
+.search-bar-container {
+  text-align: center;
+  .search-bar-img {
+    img {
+      width: 80%;
+    }
+  }
+
+  .search-bar {
+    input {
+      width: 90%;
+      padding: 15px 40px;
+      border: 1px solid $purple;
+      border-radius: 25px;
+    }
+  }
+}

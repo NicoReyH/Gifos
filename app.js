@@ -1,6 +1,7 @@
 const burguerMenu = document.querySelector(".burguer-menu");
 const menuMobile = document.querySelector(".nav-ul");
 
+//Función para cambiar el ícono del burguer menú por una X
 const showHideMenu = () => {
   if (
     menuMobile.style.left === "-100%" &&

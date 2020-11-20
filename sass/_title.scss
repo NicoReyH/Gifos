@@ -1,0 +1,14 @@
+.title-container {
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  h1 {
+    font-family: $montserrat;
+    font-size: 2em;
+    color: $purple;
+
+    span {
+      color: $green;
+    }
+  }
+}
