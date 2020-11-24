@@ -154,6 +154,7 @@
 
 .search-bar-container {
   text-align: center;
+  margin-bottom: 30px;
 }
 
 .search-bar-container .search-bar-img img {
@@ -209,4 +210,22 @@
     margin: 0 auto;
     width: 50%;
   }
+}
+
+.trending-container {
+  color: #572ee5;
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
+}
+
+.trending-container h3 {
+  font-weight: 700;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.trending-container span {
+  text-transform: capitalize;
+  font-weight: 500;
+  font-size: 1rem;
 }
