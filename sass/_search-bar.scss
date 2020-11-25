@@ -1,6 +1,7 @@
 .search-bar-container {
   text-align: center;
   margin-bottom: 30px;
+  font-family: $roboto;
   .search-bar-img {
     img {
       width: 80%;
@@ -8,27 +9,67 @@
   }
 
   .search-bar {
-    position: relative;
     color: #000;
+    border: 1px solid $purple;
+    border-radius: 25px;
 
-    input {
+    .search-input {
       width: 90%;
-      padding: 15px 40px;
-      border: 1px solid $purple;
-      border-radius: 25px;
-      font-family: $roboto;
-      font-size: bold;
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin: 0 auto;
 
-      &::placeholder {
-        color: $active;
-        padding: 15px 0;
+      input {
+        padding: 15px 20px;
+        width: 100%;
+        border: none;
+        outline: none;
+        text-transform: capitalize;
+        &::placeholder {
+          color: $active;
+        }
+      }
+      .search-icon {
+        position: absolute;
+        right: 3%;
       }
     }
-    &:after {
-      content: url("../assets/icon-search.svg");
-      position: absolute;
-      right: 10%;
-      top: 27%;
+
+    .autocomplete-box {
+      text-align: left;
+      text-transform: capitalize;
+
+      .autocomplete-results-list {
+        list-style: none;
+        margin-left: 0;
+        padding-left: 0;
+        font-size: 0.8em;
+
+        li {
+          padding: 5px 15px;
+          text-indent: -1em;
+          color: $active;
+          margin-bottom: 5px;
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #f3f5f8;
+          }
+
+          &:last-of-type {
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+          }
+          img {
+            width: 13px;
+            margin-right: 25px;
+            order: -1;
+          }
+        }
+      }
     }
   }
 }

@@ -1,0 +1,49 @@
+footer,
+.social-media,
+.social-media p {
+  margin-bottom: 20px;
+}
+
+footer {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  text-align: center;
+  font-family: $roboto;
+
+  p {
+    font-size: 0.9em;
+  }
+
+  .social-media {
+    p {
+      font-size: 1em;
+    }
+
+    .icons {
+      display: flex;
+      justify-content: center;
+      img {
+        margin-right: 25px;
+        &:last-of-type {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $min-desktop) {
+  footer {
+    flex-flow: row nowrap;
+    margin-bottom: 0;
+
+    .social-media {
+      display: flex;
+      p {
+        margin-bottom: 0;
+        margin-right: 20px;
+      }
+    }
+  }
+}

@@ -14,6 +14,11 @@
   text-transform: uppercase;
 }
 
+body {
+  border-top: 5px solid #572ee5;
+  border-bottom: 5px solid #572ee5;
+}
+
 .header,
 .nav-ul {
   display: -webkit-box;
@@ -96,8 +101,9 @@
         -ms-flex-flow: column;
             flex-flow: column;
     position: absolute;
-    top: 80px;
+    top: 85px;
     left: -100%;
+    z-index: 1;
     height: 100vh;
     width: 100%;
     background-color: #572ee5;
@@ -155,6 +161,7 @@
 .search-bar-container {
   text-align: center;
   margin-bottom: 30px;
+  font-family: "Roboto", sans-serif;
 }
 
 .search-bar-container .search-bar-img img {
@@ -162,44 +169,93 @@
 }
 
 .search-bar-container .search-bar {
-  position: relative;
   color: #000;
-}
-
-.search-bar-container .search-bar input {
-  width: 90%;
-  padding: 15px 40px;
   border: 1px solid #572ee5;
   border-radius: 25px;
-  font-family: "Roboto", sans-serif;
-  font-size: bold;
 }
 
-.search-bar-container .search-bar input::-webkit-input-placeholder {
+.search-bar-container .search-bar .search-input {
+  width: 90%;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 auto;
+}
+
+.search-bar-container .search-bar .search-input input {
+  padding: 15px 20px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-transform: capitalize;
+}
+
+.search-bar-container .search-bar .search-input input::-webkit-input-placeholder {
   color: #9cafc3;
-  padding: 15px 0;
 }
 
-.search-bar-container .search-bar input:-ms-input-placeholder {
+.search-bar-container .search-bar .search-input input:-ms-input-placeholder {
   color: #9cafc3;
-  padding: 15px 0;
 }
 
-.search-bar-container .search-bar input::-ms-input-placeholder {
+.search-bar-container .search-bar .search-input input::-ms-input-placeholder {
   color: #9cafc3;
-  padding: 15px 0;
 }
 
-.search-bar-container .search-bar input::placeholder {
+.search-bar-container .search-bar .search-input input::placeholder {
   color: #9cafc3;
-  padding: 15px 0;
 }
 
-.search-bar-container .search-bar:after {
-  content: url("../assets/icon-search.svg");
+.search-bar-container .search-bar .search-input .search-icon {
   position: absolute;
-  right: 10%;
-  top: 27%;
+  right: 3%;
+}
+
+.search-bar-container .search-bar .autocomplete-box {
+  text-align: left;
+  text-transform: capitalize;
+}
+
+.search-bar-container .search-bar .autocomplete-box .autocomplete-results-list {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+  font-size: 0.8em;
+}
+
+.search-bar-container .search-bar .autocomplete-box .autocomplete-results-list li {
+  padding: 5px 15px;
+  text-indent: -1em;
+  color: #9cafc3;
+  margin-bottom: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+}
+
+.search-bar-container .search-bar .autocomplete-box .autocomplete-results-list li:hover {
+  background-color: #f3f5f8;
+}
+
+.search-bar-container .search-bar .autocomplete-box .autocomplete-results-list li:last-of-type {
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+
+.search-bar-container .search-bar .autocomplete-box .autocomplete-results-list li img {
+  width: 13px;
+  margin-right: 25px;
+  -webkit-box-ordinal-group: 0;
+      -ms-flex-order: -1;
+          order: -1;
 }
 
 @media only screen and (min-width: 768px) {
@@ -212,20 +268,127 @@
   }
 }
 
-.trending-container {
+.trending-categories, .trending-gifos {
   color: #572ee5;
   font-family: "Montserrat", sans-serif;
   text-align: center;
+  margin-bottom: 30px;
 }
 
-.trending-container h3 {
+.trending-categories h3, .trending-gifos h3 {
   font-weight: 700;
   margin-bottom: 10px;
   font-size: 18px;
 }
 
-.trending-container span {
+.trending-categories span, .trending-gifos span {
   text-transform: capitalize;
   font-weight: 500;
   font-size: 1rem;
+  margin-right: 5px;
+}
+
+.trending-categories span:last-of-type, .trending-gifos span:last-of-type {
+  margin-right: 0;
+}
+
+.trending-gifos {
+  background-color: #f3f5f8;
+  padding: 40px 0;
+}
+
+.trending-gifos h2 {
+  margin-bottom: 15px;
+  font-size: 1.25em;
+}
+
+.trending-gifos p {
+  color: #000;
+  font-family: "Roboto", sans-serif;
+  margin-bottom: 30px;
+}
+
+.trending-gifos .gifs-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  overflow: hidden;
+}
+
+.trending-gifos .gifs-container img {
+  margin: 0 auto;
+  width: 357px;
+  height: 357px;
+}
+
+footer,
+.social-media,
+.social-media p {
+  margin-bottom: 20px;
+}
+
+footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+}
+
+footer p {
+  font-size: 0.9em;
+}
+
+footer .social-media p {
+  font-size: 1em;
+}
+
+footer .social-media .icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+footer .social-media .icons img {
+  margin-right: 25px;
+}
+
+footer .social-media .icons img:last-of-type {
+  margin-right: 0;
+}
+
+@media only screen and (min-width: 768px) {
+  footer {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+    margin-bottom: 0;
+  }
+  footer .social-media {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  footer .social-media p {
+    margin-bottom: 0;
+    margin-right: 20px;
+  }
 }

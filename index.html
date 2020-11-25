@@ -50,18 +50,46 @@
           <img src="./assets/ilustra_header.svg" alt="Gifos" />
         </div>
         <div class="search-bar">
-          <input
-            type="text"
-            name="search"
-            id="search"
-            placeholder="Buscar GIFOS y más"
-          />
+          <div class="search-input">
+            <input
+              type="text"
+              name="search"
+              id="search"
+              placeholder="Buscar GIFOS y más"
+            />
+            <img src="./assets/icon-search.svg" alt="Search" id="search-icon" />
+          </div>
+          <div class="autocomplete-box">
+            <ul class="autocomplete-results-list"></ul>
+          </div>
         </div>
       </section>
 
-      <section class="trending-container">
+      <section class="trending-categories">
         <h3>Trending:</h3>
       </section>
+    </div>
+
+    <section class="trending-gifos">
+      <div class="container">
+        <h2>Trending GIFOS</h2>
+        <p>Mira los últimos GIFOS de nuestra comunidad</p>
+        <div class="gifs-container"></div>
+      </div>
+    </section>
+
+    <div class="container">
+      <footer>
+        <div class="social-media">
+          <p>Compartir en:</p>
+          <div class="icons">
+            <img src="./assets/icon_facebook.svg" alt="Facebook" />
+            <img src="./assets/icon-twitter.svg" alt="Twitter" />
+            <img src="./assets/icon_instagram.svg" alt="Instagram" />
+          </div>
+        </div>
+        <p>© GIFOS 2020 All Rights Reserved.</p>
+      </footer>
     </div>
 
     <script src="./app.js"></script>

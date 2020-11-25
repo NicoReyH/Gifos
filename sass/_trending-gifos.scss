@@ -1,0 +1,26 @@
+.trending-gifos {
+  @extend .trending-categories;
+  background-color: #f3f5f8;
+  padding: 40px 0;
+  h2 {
+    margin-bottom: 15px;
+    font-size: 1.25em;
+  }
+  p {
+    color: #000;
+    font-family: $roboto;
+    margin-bottom: 30px;
+  }
+
+  .gifs-container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    overflow: hidden;
+    img {
+      margin: 0 auto;
+      width: 357px;
+      height: 357px;
+    }
+  }
+}
