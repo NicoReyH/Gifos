@@ -23,9 +23,39 @@ burguerMenu.addEventListener("click", showHideMenu);
 //Función para manejar errores de fetch en las funciones
 const errorHandler = (error) => console.log("Hubo un error: ", error);
 
-//Función de autocompletado de texto en la barra de búsqueda
+//Función para mosrar los GIFs buscados
+const showSearchGifs = async (word) => {
+  const gifsResultsSection = document.querySelector(".gifs-results");
+  gifsResultsSection.innerHTML = "";
+  try {
+    const apiCall = await fetch(
+      `${apiUrl}gifs/search?limit=12&q=${word}&api_key=${apiKey}`
+    );
+    const gifs = await apiCall.json();
+    let title = document.createElement("h4");
+    title.textContent = word;
+    gifsResultsSection.appendChild(title);
+    const gifsResultsContainer = document.createElement("div");
+    gifsResultsContainer.classList.add("gifs-results-container");
+    gifsResultsSection.appendChild(gifsResultsContainer);
+    gifs.data.map((gif) => {
+      let newGif = document.createElement("img");
+      newGif.src = gif.images.original.url;
+      gifsResultsContainer.appendChild(newGif);
+    });
+    let btn = document.createElement("button");
+    btn.textContent = "ver más";
+    btn.classList.add("btn");
+    gifsResultsSection.appendChild(btn);
+  } catch (err) {
+    errorHandler(err);
+  }
+};
+
+//Función de autocompletado de texto y búsqueda de Gifs en la barra de búsqueda
 const searchAutocomplete = async () => {
   const autoCompleteBox = document.querySelector(".autocomplete-box");
+  autoCompleteBox.innerHTML = "";
   //Creando el UL que contendrá los términos de autocompletado
   let autoCompleteResultsList = document.createElement("ul");
   autoCompleteResultsList.classList.add("autocomplete-results-list");
@@ -41,30 +71,37 @@ const searchAutocomplete = async () => {
     searchIcon.style.cursor = "pointer";
     //Creando cada elemento LI por cada término de autocompletado y añadiendo el ícono de lupa
     autoCompleteWords.data.map((word) => {
-      autocompleteSearchIcon = document.createElement("img");
+      let autocompleteSearchIcon = document.createElement("img");
       autocompleteSearchIcon.src = "./assets/icon-search.svg";
-      newWord = document.createElement("li");
+      let newWord = document.createElement("li");
       newWord.textContent = word.name;
       newWord.appendChild(autocompleteSearchIcon);
       //Listener para que al dar click en un resultado sugerido, este se vuelva el valor del searchBar
       newWord.addEventListener("click", () => {
         searchBar.value = word.name;
         autoCompleteResultsList.remove();
-      });
-      //Función para eliminar los resultados y lo escrito en el searchBar y cambiando el ícono por la lupa
-      searchIcon.addEventListener("click", () => {
-        searchBar.value = "";
-        autoCompleteResultsList.remove();
-        searchIcon.setAttribute("src", "./assets/icon-search.svg");
+        showSearchGifs(word.name);
       });
       autoCompleteResultsList.appendChild(newWord);
+    });
+    //Función para eliminar los resultados y lo escrito en el searchBar y cambiando el ícono por la lupa
+    searchIcon.addEventListener("click", () => {
+      searchBar.value = "";
+      autoCompleteResultsList.remove();
+      searchIcon.setAttribute("src", "./assets/icon-search.svg");
+      searchIcon.style.cursor = "default";
     });
   } catch (err) {
     errorHandler(err);
   }
 };
 
-searchBar.addEventListener("input", searchAutocomplete);
+searchBar.addEventListener("keyup", searchAutocomplete);
+searchBar.addEventListener("keypress", (e) => {
+  if (e.key === "Enter" && searchBar.value.length > 0) {
+    showSearchGifs(searchBar.value);
+  }
+});
 
 //Función para mostrar las categorías trending (texto)
 const trendingCategories = async () => {
@@ -81,6 +118,9 @@ const trendingCategories = async () => {
         } else {
           categories.textContent = `${elem}, `;
         }
+        categories.addEventListener("click", () => {
+          showSearchGifs(elem);
+        });
         container.appendChild(categories);
       }
     });

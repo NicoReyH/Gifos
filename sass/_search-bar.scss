@@ -5,6 +5,7 @@
   .search-bar-img {
     img {
       width: 80%;
+      margin-bottom: -5px;
     }
   }
 
@@ -12,6 +13,7 @@
     color: #000;
     border: 1px solid $purple;
     border-radius: 25px;
+    overflow: hidden;
 
     .search-input {
       width: 90%;
@@ -28,6 +30,7 @@
         text-transform: capitalize;
         &::placeholder {
           color: $active;
+          text-transform: none;
         }
       }
       .search-icon {
@@ -59,10 +62,6 @@
             background-color: #f3f5f8;
           }
 
-          &:last-of-type {
-            border-bottom-left-radius: 25px;
-            border-bottom-right-radius: 25px;
-          }
           img {
             width: 13px;
             margin-right: 25px;
@@ -79,6 +78,7 @@
     .search-bar-img {
       img {
         width: 35%;
+        margin-bottom: -4px;
       }
     }
   }
