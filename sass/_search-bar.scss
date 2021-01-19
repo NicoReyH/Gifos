@@ -50,22 +50,30 @@
         font-size: 0.8em;
 
         li {
-          padding: 5px 15px;
+          padding: 5px 0;
+          padding-left: 10px;
           text-indent: -1em;
           color: $active;
           margin-bottom: 5px;
           display: flex;
           align-items: center;
           cursor: pointer;
+          &:first-of-type {
+            border-top: 1px solid #f3f5f8;
+          }
 
           &:hover {
             background-color: #f3f5f8;
+          }
+          &:hover img {
+            opacity: 1;
           }
 
           img {
             width: 13px;
             margin-right: 25px;
             order: -1;
+            opacity: 0.2;
           }
         }
       }
@@ -81,10 +89,17 @@
         margin-bottom: -4px;
       }
     }
-  }
 
-  .search-bar {
-    margin: 0 auto;
-    width: 50%;
+    .search-bar {
+      margin: 0 auto;
+      width: 50%;
+      .autocomplete-box {
+        .autocomplete-results-list {
+          li {
+            padding-left: 25px;
+          }
+        }
+      }
+    }
   }
 }

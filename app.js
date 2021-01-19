@@ -24,29 +24,50 @@ burguerMenu.addEventListener("click", showHideMenu);
 const errorHandler = (error) => console.log("Hubo un error: ", error);
 
 //Función para mosrar los GIFs buscados
-const showSearchGifs = async (word) => {
+const showSearchedGifs = async (word) => {
   const gifsResultsSection = document.querySelector(".gifs-results");
   gifsResultsSection.innerHTML = "";
   try {
     const apiCall = await fetch(
-      `${apiUrl}gifs/search?limit=12&q=${word}&api_key=${apiKey}`
+      `${apiUrl}gifs/search?q=${word}&api_key=${apiKey}`
     );
     const gifs = await apiCall.json();
     let title = document.createElement("h4");
     title.textContent = word;
     gifsResultsSection.appendChild(title);
-    const gifsResultsContainer = document.createElement("div");
+    let gifsResultsContainer = document.createElement("div");
     gifsResultsContainer.classList.add("gifs-results-container");
     gifsResultsSection.appendChild(gifsResultsContainer);
-    gifs.data.map((gif) => {
-      let newGif = document.createElement("img");
-      newGif.src = gif.images.original.url;
-      gifsResultsContainer.appendChild(newGif);
+    gifs.data.map((gif, index) => {
+      if (index <= 11) {
+        let newGifContainer = document.createElement("div");
+        let newGif = document.createElement("img");
+        newGifContainer.classList.add("gif");
+        newGif.src = gif.images.fixed_width.url;
+        newGifContainer.appendChild(newGif);
+        gifsResultsContainer.appendChild(newGifContainer);
+      }
     });
     let btn = document.createElement("button");
     btn.textContent = "ver más";
     btn.classList.add("btn");
     gifsResultsSection.appendChild(btn);
+    let currentGifs = gifsResultsContainer.childElementCount;
+    btn.addEventListener("click", (e) => {
+      gifs.data.map((gif, index) => {
+        if (index >= currentGifs) {
+          let newGifContainer = document.createElement("div");
+          let newGif = document.createElement("img");
+          newGifContainer.classList.add("gif");
+          newGif.src = gif.images.fixed_width.url;
+          newGifContainer.appendChild(newGif);
+          gifsResultsContainer.appendChild(newGifContainer);
+        }
+      });
+      if (currentGifs >= gifs.pagination.count) {
+        e.target.style.display = "none";
+      }
+    });
   } catch (err) {
     errorHandler(err);
   }
@@ -80,7 +101,7 @@ const searchAutocomplete = async () => {
       newWord.addEventListener("click", () => {
         searchBar.value = word.name;
         autoCompleteResultsList.remove();
-        showSearchGifs(word.name);
+        showSearchedGifs(word.name);
       });
       autoCompleteResultsList.appendChild(newWord);
     });
@@ -96,10 +117,11 @@ const searchAutocomplete = async () => {
   }
 };
 
+//Listeners para ejecutar la búsqueda desde el searchbar
 searchBar.addEventListener("keyup", searchAutocomplete);
 searchBar.addEventListener("keypress", (e) => {
   if (e.key === "Enter" && searchBar.value.length > 0) {
-    showSearchGifs(searchBar.value);
+    showSearchedGifs(searchBar.value);
   }
 });
 
@@ -119,7 +141,7 @@ const trendingCategories = async () => {
           categories.textContent = `${elem}, `;
         }
         categories.addEventListener("click", () => {
-          showSearchGifs(elem);
+          showSearchedGifs(elem);
         });
         container.appendChild(categories);
       }
@@ -140,10 +162,13 @@ const trendingGifs = async () => {
     );
     const trendingGifs = await apiCall.json();
     trendingGifs.data.map((elem) => {
+      let newGifContainer = document.createElement("div");
+      newGifContainer.classList.add("gif");
       let img = document.createElement("img");
       img.src = elem.images.original.url;
       img.alt = "Gif";
-      gifsContainer.appendChild(img);
+      newGifContainer.appendChild(img);
+      gifsContainer.appendChild(newGifContainer);
     });
   } catch (err) {
     errorHandler(err);
