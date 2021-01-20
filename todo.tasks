@@ -6,7 +6,7 @@
     ✔ Hacer que se muestren los GIFs según lo puesto en la barra de búsqueda. @critical @done (11/26/2020, 1:53:21 PM)
     ☐ Hacer que con el botón ver más, se carguen más GIFs según lo buscado. @critical 
     ✔ Hacer que al dar click en una de las tendencias, se carguen los GIFs según esa tendencia junto con la funcionalidad previa de la muestra de GIFs. @high @done (11/26/2020, 1:53:28 PM)
-    ☐ Mostrar la información requerida y los íconos de favorito, expandir y descargar al hacer hover sobre un GIF. En mobile debe ser al dar click en un GIF. @critical 
+    ☐ Mostrar la información requerida y los íconos de favorito, expandir y descargar al hacer hover sobre un GIF. En mobile debe ser al dar click en un GIF. @critical
     ☐ Crear la funcionalidad para que al darle click al ícono de pantalla completa se vea el GIF grande junto con la información y los íconos de favorito y descargar. @critical
     ☐ Crear la funcionalidad para que al dar click en favorito, el GIF se guarde en el localStorage y el ícono cambie al estado de guardado. @critical 
 

@@ -21,7 +21,7 @@ const showHideMenu = () => {
 burguerMenu.addEventListener("click", showHideMenu);
 
 //Función para manejar errores de fetch en las funciones
-const errorHandler = (error) => console.log("Hubo un error: ", error);
+const errorHandler = (error) => console.error("Hubo un error: ", error);
 
 //Función para mosrar los GIFs buscados
 const showSearchedGifs = async (word) => {
@@ -40,34 +40,71 @@ const showSearchedGifs = async (word) => {
     gifsResultsSection.appendChild(gifsResultsContainer);
     gifs.data.map((gif, index) => {
       if (index <= 11) {
-        let newGifContainer = document.createElement("div");
+        let gifContainer = document.createElement("div");
+        gifContainer.classList.add("gif-container");
+        gifsResultsContainer.appendChild(gifContainer);
         let newGif = document.createElement("img");
-        newGifContainer.classList.add("gif");
         newGif.src = gif.images.fixed_width.url;
-        newGifContainer.appendChild(newGif);
-        gifsResultsContainer.appendChild(newGifContainer);
+        newGif.alt = "Gif";
+        gifContainer.appendChild(newGif);
+        let gifOverlay = document.createElement("div");
+        gifOverlay.classList.add("gif-overlay");
+        gifContainer.appendChild(gifOverlay);
+        let gifIcons = document.createElement("div");
+        gifIcons.classList.add("gif-icons");
+        gifOverlay.appendChild(gifIcons);
+        let favIcon = document.createElement("img");
+        favIcon.src = "../assets/icon-fav.svg";
+        favIcon.alt = "Guardar Gif en favoritos";
+        favIcon.addEventListener(
+          "mouseenter",
+          () => (favIcon.src = "../assets/icon-fav-hover.svg")
+        );
+        favIcon.addEventListener(
+          "mouseleave",
+          () => (favIcon.src = "../assets/icon-fav.svg")
+        );
+        gifIcons.appendChild(favIcon);
+        let downloadIcon = document.createElement("img");
+        downloadIcon.src = "../assets/icon-download.svg";
+        downloadIcon.alt = "Descargar Gif";
+        downloadIcon.addEventListener(
+          "mouseenter",
+          () => (downloadIcon.src = "../assets/icon-download-hover.svg")
+        );
+        downloadIcon.addEventListener(
+          "mouseleave",
+          () => (downloadIcon.src = "../assets/icon-download.svg")
+        );
+        gifIcons.appendChild(downloadIcon);
+        let maxIcon = document.createElement("img");
+        maxIcon.src = "../assets/icon-max-normal.svg";
+        maxIcon.alt = "Ver Gif en pantalla completa";
+        maxIcon.addEventListener(
+          "mouseenter",
+          () => (maxIcon.src = "../assets/icon-max-hover.svg")
+        );
+        maxIcon.addEventListener(
+          "mouseleave",
+          () => (maxIcon.src = "../assets/icon-max-normal.svg")
+        );
+        gifIcons.appendChild(maxIcon);
+        let gifInfo = document.createElement("div");
+        gifInfo.classList.add("gif-info");
+        gifOverlay.appendChild(gifInfo);
+        let username = document.createElement("span");
+        username.textContent = gif.username;
+        gifInfo.appendChild(username);
+        let gifTitle = document.createElement("span");
+        gifTitle.textContent = gif.title;
+        gifInfo.appendChild(gifTitle);
       }
     });
-    let btn = document.createElement("button");
-    btn.textContent = "ver más";
-    btn.classList.add("btn");
-    gifsResultsSection.appendChild(btn);
-    let currentGifs = gifsResultsContainer.childElementCount;
-    btn.addEventListener("click", (e) => {
-      gifs.data.map((gif, index) => {
-        if (index >= currentGifs) {
-          let newGifContainer = document.createElement("div");
-          let newGif = document.createElement("img");
-          newGifContainer.classList.add("gif");
-          newGif.src = gif.images.fixed_width.url;
-          newGifContainer.appendChild(newGif);
-          gifsResultsContainer.appendChild(newGifContainer);
-        }
-      });
-      if (currentGifs >= gifs.pagination.count) {
-        e.target.style.display = "none";
-      }
-    });
+
+    const loadMoreGifsBtn = document.createElement("button");
+    loadMoreGifsBtn.textContent = "ver más";
+    loadMoreGifsBtn.classList.add("load-more-btn");
+    gifsResultsSection.appendChild(loadMoreGifsBtn);
   } catch (err) {
     errorHandler(err);
   }
@@ -155,20 +192,73 @@ trendingCategories();
 
 //Función para mosrar los GIFs en tendencia
 const trendingGifs = async () => {
-  const gifsContainer = document.querySelector(".gifs-container");
+  const trendingGifsContainer = document.querySelector(
+    ".trending-gifs-container"
+  );
   try {
     const apiCall = await fetch(
       `${apiUrl}gifs/trending?limit=3&rating=g&api_key=${apiKey}`
     );
     const trendingGifs = await apiCall.json();
-    trendingGifs.data.map((elem) => {
-      let newGifContainer = document.createElement("div");
-      newGifContainer.classList.add("gif");
-      let img = document.createElement("img");
-      img.src = elem.images.original.url;
-      img.alt = "Gif";
-      newGifContainer.appendChild(img);
-      gifsContainer.appendChild(newGifContainer);
+    trendingGifs.data.map((gif) => {
+      let gifContainer = document.createElement("div");
+      gifContainer.classList.add("gif-container");
+      trendingGifsContainer.appendChild(gifContainer);
+      let newGif = document.createElement("img");
+      newGif.src = gif.images.fixed_width.url;
+      newGif.alt = "Gif";
+      gifContainer.appendChild(newGif);
+      let gifOverlay = document.createElement("div");
+      gifOverlay.classList.add("gif-overlay");
+      gifContainer.appendChild(gifOverlay);
+      let gifIcons = document.createElement("div");
+      gifIcons.classList.add("gif-icons");
+      gifOverlay.appendChild(gifIcons);
+      let favIcon = document.createElement("img");
+      favIcon.src = "../assets/icon-fav.svg";
+      favIcon.alt = "Guardar Gif en favoritos";
+      favIcon.addEventListener(
+        "mouseenter",
+        () => (favIcon.src = "../assets/icon-fav-hover.svg")
+      );
+      favIcon.addEventListener(
+        "mouseleave",
+        () => (favIcon.src = "../assets/icon-fav.svg")
+      );
+      gifIcons.appendChild(favIcon);
+      let downloadIcon = document.createElement("img");
+      downloadIcon.src = "../assets/icon-download.svg";
+      downloadIcon.alt = "Descargar Gif";
+      downloadIcon.addEventListener(
+        "mouseenter",
+        () => (downloadIcon.src = "../assets/icon-download-hover.svg")
+      );
+      downloadIcon.addEventListener(
+        "mouseleave",
+        () => (downloadIcon.src = "../assets/icon-download.svg")
+      );
+      gifIcons.appendChild(downloadIcon);
+      let maxIcon = document.createElement("img");
+      maxIcon.src = "../assets/icon-max-normal.svg";
+      maxIcon.alt = "Ver Gif en pantalla completa";
+      maxIcon.addEventListener(
+        "mouseenter",
+        () => (maxIcon.src = "../assets/icon-max-hover.svg")
+      );
+      maxIcon.addEventListener(
+        "mouseleave",
+        () => (maxIcon.src = "../assets/icon-max-normal.svg")
+      );
+      gifIcons.appendChild(maxIcon);
+      let gifInfo = document.createElement("div");
+      gifInfo.classList.add("gif-info");
+      gifOverlay.appendChild(gifInfo);
+      let username = document.createElement("span");
+      username.textContent = gif.username;
+      gifInfo.appendChild(username);
+      let gifTitle = document.createElement("span");
+      gifTitle.textContent = gif.title;
+      gifInfo.appendChild(gifTitle);
     });
   } catch (err) {
     errorHandler(err);

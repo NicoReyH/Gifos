@@ -262,36 +262,36 @@
   }
 }
 
-.trending-categories, .trending-gifos {
+.trending-categories {
   color: #572ee5;
   font-family: "Montserrat", sans-serif;
   text-align: center;
   margin-bottom: 30px;
 }
 
-.trending-categories h3, .trending-gifos h3 {
+.trending-categories h3 {
   font-weight: 700;
   margin-bottom: 10px;
   font-size: 18px;
 }
 
-.trending-categories span, .trending-gifos span {
+.trending-categories span {
   text-transform: capitalize;
   font-weight: 500;
   font-size: 1rem;
   margin-right: 5px;
 }
 
-.trending-categories span:last-of-type, .trending-gifos span:last-of-type {
+.trending-categories span:last-of-type {
   margin-right: 0;
 }
 
-.trending-categories span:hover, .trending-gifos span:hover {
+.trending-categories span:hover {
   text-decoration: underline;
   cursor: pointer;
 }
 
-.trending-categories span:active, .trending-gifos span:active {
+.trending-categories span:active {
   color: #9cafc3;
 }
 
@@ -327,17 +327,7 @@
   margin-bottom: 30px;
 }
 
-.gifs-results .gifs-results-container .gif {
-  width: 45%;
-  margin-bottom: 10px;
-}
-
-.gifs-results .gifs-results-container .gif img {
-  width: 100%;
-  height: 150px;
-}
-
-.gifs-results .btn {
+.gifs-results .load-more-btn {
   text-transform: uppercase;
   font-weight: 700;
   padding: 15px 40px;
@@ -347,31 +337,103 @@
   outline: none;
 }
 
-.gifs-results .btn:hover {
+.gifs-results .load-more-btn:hover {
   background-color: #572ee5;
   color: #fff;
   cursor: pointer;
 }
 
-.gifs-results .btn:active {
+.gifs-results .load-more-btn:active {
   background-color: #9cafc3;
 }
 
+.gif-container {
+  height: 180px;
+  width: 49%;
+  margin-bottom: 4px;
+}
+
+.gif-container img {
+  width: 100%;
+  height: 100%;
+}
+
+.gif-container .gif-overlay {
+  display: none;
+}
+
 @media only screen and (min-width: 768px) {
-  .gifs-results .gifs-results-container .gif {
-    width: 24%;
-    height: 250px;
+  .gif-container {
+    height: 280px;
+    width: 280px;
+    margin-bottom: 1%;
   }
-  .gifs-results .gifs-results-container .gif img {
-    height: 250px;
+  .gif-container .gif-overlay {
+    display: inline-block;
+    position: relative;
+    top: -101%;
+    left: 0;
+    background-color: #572ee5;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    opacity: 0.85;
+    visibility: hidden;
   }
-  .gifs-results .gifs-results-container .gif img:hover {
-    opacity: 0.5;
+  .gif-container .gif-overlay .gif-icons {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+  }
+  .gif-container .gif-overlay .gif-icons img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    margin-top: 5px;
+  }
+  .gif-container .gif-overlay .gif-icons img:hover {
     cursor: pointer;
+  }
+  .gif-container .gif-overlay .gif-info {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+    text-align: left;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: column nowrap;
+            flex-flow: column nowrap;
+    position: relative;
+    top: 65%;
+    margin-left: 10px;
+  }
+  .gif-container .gif-overlay .gif-info span {
+    display: block;
+    margin-bottom: 5px;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+  }
+  .gif-container .gif-overlay .gif-info span:first-of-type {
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .gif-container:hover .gif-overlay {
+    visibility: visible;
   }
 }
 
 .trending-gifos {
+  color: #572ee5;
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
+  margin-bottom: 30px;
   background-color: #f3f5f8;
   padding: 40px 0;
 }
@@ -387,22 +449,28 @@
   margin-bottom: 30px;
 }
 
-.trending-gifos .gifs-container {
+.trending-gifos .trending-gifs-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row nowrap;
-          flex-flow: row nowrap;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  overflow: hidden;
 }
 
-.trending-gifos .gifs-container img {
-  margin: 0 auto;
+.trending-gifos .trending-gifs-container .gif-container {
+  margin-right: 3px;
+}
+
+@media only screen and (min-width: 768px) {
+  .trending-gifs-container {
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+  }
+  .trending-gifs-container .gif-container {
+    width: 380px;
+    height: 380px;
+  }
+  .trending-gifs-container .gif-container .gif-overlay .gif-info {
+    top: 73%;
+  }
 }
 
 footer,
@@ -489,23 +557,4 @@ footer .social-media .icons img:last-of-type {
 body {
   border-top: 5px solid #572ee5;
   border-bottom: 5px solid #572ee5;
-}
-
-@media only screen and (min-width: 768px) {
-  .gif {
-    background-color: #572ee5;
-    opacity: 1;
-    margin-bottom: 5px;
-    width: 200px;
-    height: 200px;
-    overflow: hidden;
-  }
-  .gif img {
-    width: 100%;
-    height: 100%;
-  }
-  .gif img:hover {
-    opacity: 0.5;
-    cursor: pointer;
-  }
 }

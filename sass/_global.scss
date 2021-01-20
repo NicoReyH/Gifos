@@ -17,22 +17,3 @@ body {
   border-top: 5px solid $purple;
   border-bottom: 5px solid $purple;
 }
-
-@media only screen and (min-width: $min-desktop) {
-  .gif {
-    background-color: $purple;
-    opacity: 1;
-    margin-bottom: 5px;
-    width: 200px;
-    height: 200px;
-    overflow: hidden;
-    img {
-      width: 100%;
-      height: 100%;
-      &:hover {
-        opacity: 0.5;
-        cursor: pointer;
-      }
-    }
-  }
-}
