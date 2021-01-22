@@ -23,6 +23,69 @@ burguerMenu.addEventListener("click", showHideMenu);
 //Función para manejar errores de fetch en las funciones
 const errorHandler = (error) => console.error("Hubo un error: ", error);
 
+const createAndDisplayGifs = async (entryData, dataContainer) => {
+  entryData.map((gif, index) => {
+    let gifContainer = document.createElement("div");
+    gifContainer.classList.add("gif-container");
+    dataContainer.appendChild(gifContainer);
+    let newGif = document.createElement("img");
+    newGif.src = gif.images.fixed_width.url;
+    newGif.alt = "Gif";
+    gifContainer.appendChild(newGif);
+    let gifOverlay = document.createElement("div");
+    gifOverlay.classList.add("gif-overlay");
+    gifContainer.appendChild(gifOverlay);
+    let gifIcons = document.createElement("div");
+    gifIcons.classList.add("gif-icons");
+    gifOverlay.appendChild(gifIcons);
+    let favIcon = document.createElement("img");
+    favIcon.src = "../assets/icon-fav.svg";
+    favIcon.alt = "Guardar Gif en favoritos";
+    favIcon.addEventListener(
+      "mouseenter",
+      () => (favIcon.src = "../assets/icon-fav-hover.svg")
+    );
+    favIcon.addEventListener(
+      "mouseleave",
+      () => (favIcon.src = "../assets/icon-fav.svg")
+    );
+    gifIcons.appendChild(favIcon);
+    let downloadIcon = document.createElement("img");
+    downloadIcon.src = "../assets/icon-download.svg";
+    downloadIcon.alt = "Descargar Gif";
+    downloadIcon.addEventListener(
+      "mouseenter",
+      () => (downloadIcon.src = "../assets/icon-download-hover.svg")
+    );
+    downloadIcon.addEventListener(
+      "mouseleave",
+      () => (downloadIcon.src = "../assets/icon-download.svg")
+    );
+    gifIcons.appendChild(downloadIcon);
+    let maxIcon = document.createElement("img");
+    maxIcon.src = "../assets/icon-max-normal.svg";
+    maxIcon.alt = "Ver Gif en pantalla completa";
+    maxIcon.addEventListener(
+      "mouseenter",
+      () => (maxIcon.src = "../assets/icon-max-hover.svg")
+    );
+    maxIcon.addEventListener(
+      "mouseleave",
+      () => (maxIcon.src = "../assets/icon-max-normal.svg")
+    );
+    gifIcons.appendChild(maxIcon);
+    let gifInfo = document.createElement("div");
+    gifInfo.classList.add("gif-info");
+    gifOverlay.appendChild(gifInfo);
+    let username = document.createElement("span");
+    username.textContent = gif.username;
+    gifInfo.appendChild(username);
+    let gifTitle = document.createElement("span");
+    gifTitle.textContent = gif.title;
+    gifInfo.appendChild(gifTitle);
+  });
+};
+
 //Función para mosrar los GIFs buscados
 const showSearchedGifs = async (word) => {
   const gifsResultsSection = document.querySelector(".gifs-results");
@@ -38,69 +101,7 @@ const showSearchedGifs = async (word) => {
     let gifsResultsContainer = document.createElement("div");
     gifsResultsContainer.classList.add("gifs-results-container");
     gifsResultsSection.appendChild(gifsResultsContainer);
-    gifs.data.map((gif, index) => {
-      if (index <= 11) {
-        let gifContainer = document.createElement("div");
-        gifContainer.classList.add("gif-container");
-        gifsResultsContainer.appendChild(gifContainer);
-        let newGif = document.createElement("img");
-        newGif.src = gif.images.fixed_width.url;
-        newGif.alt = "Gif";
-        gifContainer.appendChild(newGif);
-        let gifOverlay = document.createElement("div");
-        gifOverlay.classList.add("gif-overlay");
-        gifContainer.appendChild(gifOverlay);
-        let gifIcons = document.createElement("div");
-        gifIcons.classList.add("gif-icons");
-        gifOverlay.appendChild(gifIcons);
-        let favIcon = document.createElement("img");
-        favIcon.src = "../assets/icon-fav.svg";
-        favIcon.alt = "Guardar Gif en favoritos";
-        favIcon.addEventListener(
-          "mouseenter",
-          () => (favIcon.src = "../assets/icon-fav-hover.svg")
-        );
-        favIcon.addEventListener(
-          "mouseleave",
-          () => (favIcon.src = "../assets/icon-fav.svg")
-        );
-        gifIcons.appendChild(favIcon);
-        let downloadIcon = document.createElement("img");
-        downloadIcon.src = "../assets/icon-download.svg";
-        downloadIcon.alt = "Descargar Gif";
-        downloadIcon.addEventListener(
-          "mouseenter",
-          () => (downloadIcon.src = "../assets/icon-download-hover.svg")
-        );
-        downloadIcon.addEventListener(
-          "mouseleave",
-          () => (downloadIcon.src = "../assets/icon-download.svg")
-        );
-        gifIcons.appendChild(downloadIcon);
-        let maxIcon = document.createElement("img");
-        maxIcon.src = "../assets/icon-max-normal.svg";
-        maxIcon.alt = "Ver Gif en pantalla completa";
-        maxIcon.addEventListener(
-          "mouseenter",
-          () => (maxIcon.src = "../assets/icon-max-hover.svg")
-        );
-        maxIcon.addEventListener(
-          "mouseleave",
-          () => (maxIcon.src = "../assets/icon-max-normal.svg")
-        );
-        gifIcons.appendChild(maxIcon);
-        let gifInfo = document.createElement("div");
-        gifInfo.classList.add("gif-info");
-        gifOverlay.appendChild(gifInfo);
-        let username = document.createElement("span");
-        username.textContent = gif.username;
-        gifInfo.appendChild(username);
-        let gifTitle = document.createElement("span");
-        gifTitle.textContent = gif.title;
-        gifInfo.appendChild(gifTitle);
-      }
-    });
-
+    await createAndDisplayGifs(gifs.data, gifsResultsContainer);
     const loadMoreGifsBtn = document.createElement("button");
     loadMoreGifsBtn.textContent = "ver más";
     loadMoreGifsBtn.classList.add("load-more-btn");
@@ -109,7 +110,6 @@ const showSearchedGifs = async (word) => {
     errorHandler(err);
   }
 };
-
 //Función de autocompletado de texto y búsqueda de Gifs en la barra de búsqueda
 const searchAutocomplete = async () => {
   const autoCompleteBox = document.querySelector(".autocomplete-box");
@@ -200,66 +200,7 @@ const trendingGifs = async () => {
       `${apiUrl}gifs/trending?limit=3&rating=g&api_key=${apiKey}`
     );
     const trendingGifs = await apiCall.json();
-    trendingGifs.data.map((gif) => {
-      let gifContainer = document.createElement("div");
-      gifContainer.classList.add("gif-container");
-      trendingGifsContainer.appendChild(gifContainer);
-      let newGif = document.createElement("img");
-      newGif.src = gif.images.fixed_width.url;
-      newGif.alt = "Gif";
-      gifContainer.appendChild(newGif);
-      let gifOverlay = document.createElement("div");
-      gifOverlay.classList.add("gif-overlay");
-      gifContainer.appendChild(gifOverlay);
-      let gifIcons = document.createElement("div");
-      gifIcons.classList.add("gif-icons");
-      gifOverlay.appendChild(gifIcons);
-      let favIcon = document.createElement("img");
-      favIcon.src = "../assets/icon-fav.svg";
-      favIcon.alt = "Guardar Gif en favoritos";
-      favIcon.addEventListener(
-        "mouseenter",
-        () => (favIcon.src = "../assets/icon-fav-hover.svg")
-      );
-      favIcon.addEventListener(
-        "mouseleave",
-        () => (favIcon.src = "../assets/icon-fav.svg")
-      );
-      gifIcons.appendChild(favIcon);
-      let downloadIcon = document.createElement("img");
-      downloadIcon.src = "../assets/icon-download.svg";
-      downloadIcon.alt = "Descargar Gif";
-      downloadIcon.addEventListener(
-        "mouseenter",
-        () => (downloadIcon.src = "../assets/icon-download-hover.svg")
-      );
-      downloadIcon.addEventListener(
-        "mouseleave",
-        () => (downloadIcon.src = "../assets/icon-download.svg")
-      );
-      gifIcons.appendChild(downloadIcon);
-      let maxIcon = document.createElement("img");
-      maxIcon.src = "../assets/icon-max-normal.svg";
-      maxIcon.alt = "Ver Gif en pantalla completa";
-      maxIcon.addEventListener(
-        "mouseenter",
-        () => (maxIcon.src = "../assets/icon-max-hover.svg")
-      );
-      maxIcon.addEventListener(
-        "mouseleave",
-        () => (maxIcon.src = "../assets/icon-max-normal.svg")
-      );
-      gifIcons.appendChild(maxIcon);
-      let gifInfo = document.createElement("div");
-      gifInfo.classList.add("gif-info");
-      gifOverlay.appendChild(gifInfo);
-      let username = document.createElement("span");
-      username.textContent = gif.username;
-      gifInfo.appendChild(username);
-      let gifTitle = document.createElement("span");
-      gifTitle.textContent = gif.title;
-      gifInfo.appendChild(gifTitle);
-    });
+    await createAndDisplayGifs(trendingGifs.data, trendingGifsContainer);
   } catch (err) {
     errorHandler(err);
   }
