@@ -3,7 +3,7 @@ const apiUrl = "https://api.giphy.com/v1/";
 const burguerMenu = document.querySelector(".burguer-menu");
 const searchBar = document.querySelector("#search");
 
-//Función para cambiar el ícono del burguer menú por una X
+//Función para cambiar el ícono del burguer menú por una X en mobile
 const showHideMenu = () => {
   const menuMobile = document.querySelector(".nav-ul");
   if (
@@ -23,13 +23,18 @@ burguerMenu.addEventListener("click", showHideMenu);
 //Función para manejar errores de fetch en las funciones
 const errorHandler = (error) => console.error("Hubo un error: ", error);
 
-const createAndDisplayGifs = async (entryData, dataContainer) => {
-  entryData.map((gif, index) => {
+//Función para crear cada Gif, agregarle el overlay con diseño e íconos y hacerle append al contenedor
+const createAndDisplayGifs = async (
+  gifData,
+  containerToAppend,
+  sectionContainer
+) => {
+  gifData.map((gif, index) => {
     let gifContainer = document.createElement("div");
     gifContainer.classList.add("gif-container");
-    dataContainer.appendChild(gifContainer);
+    containerToAppend.appendChild(gifContainer);
     let newGif = document.createElement("img");
-    newGif.src = gif.images.fixed_width.url;
+    newGif.src = gif.images.original.url;
     newGif.alt = "Gif";
     gifContainer.appendChild(newGif);
     let gifOverlay = document.createElement("div");
@@ -83,10 +88,34 @@ const createAndDisplayGifs = async (entryData, dataContainer) => {
     let gifTitle = document.createElement("span");
     gifTitle.textContent = gif.title;
     gifInfo.appendChild(gifTitle);
+    if (index > 11) {
+      gifContainer.classList.add("hide");
+    }
   });
+
+  // Agregar botón de ver más
+  if (sectionContainer) {
+    const loadMoreGifsBtn = document.createElement("button");
+    loadMoreGifsBtn.textContent = "ver más";
+    loadMoreGifsBtn.classList.add("load-more-btn");
+    sectionContainer.appendChild(loadMoreGifsBtn);
+    loadMoreGifsBtn.addEventListener("click", () => {
+      let hidGifs = document.querySelectorAll(".hide");
+      hidGifs.forEach((gif, index) => {
+        if (index <= 11) {
+          gif.classList.remove("hide");
+        }
+      });
+      if (hidGifs.length === 2) {
+        loadMoreGifsBtn.classList.add("hide");
+      }
+    });
+  } else {
+    return;
+  }
 };
 
-//Función para mosrar los GIFs buscados
+//Función para mosrar los GIFs buscados en la barra de búsqueda
 const showSearchedGifs = async (word) => {
   const gifsResultsSection = document.querySelector(".gifs-results");
   gifsResultsSection.innerHTML = "";
@@ -101,11 +130,11 @@ const showSearchedGifs = async (word) => {
     let gifsResultsContainer = document.createElement("div");
     gifsResultsContainer.classList.add("gifs-results-container");
     gifsResultsSection.appendChild(gifsResultsContainer);
-    await createAndDisplayGifs(gifs.data, gifsResultsContainer);
-    const loadMoreGifsBtn = document.createElement("button");
-    loadMoreGifsBtn.textContent = "ver más";
-    loadMoreGifsBtn.classList.add("load-more-btn");
-    gifsResultsSection.appendChild(loadMoreGifsBtn);
+    await createAndDisplayGifs(
+      gifs.data,
+      gifsResultsContainer,
+      gifsResultsSection
+    );
   } catch (err) {
     errorHandler(err);
   }

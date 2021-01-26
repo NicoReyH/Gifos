@@ -354,6 +354,9 @@
 }
 
 .gif-container img {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   width: 100%;
   height: 100%;
 }
@@ -364,14 +367,15 @@
 
 @media only screen and (min-width: 768px) {
   .gif-container {
-    height: 280px;
+    height: 255px;
     width: 280px;
     margin-bottom: 1%;
+    overflow: hidden;
   }
   .gif-container .gif-overlay {
     display: inline-block;
     position: relative;
-    top: -101%;
+    top: -100%;
     left: 0;
     background-color: #572ee5;
     color: #fff;
@@ -410,8 +414,8 @@
         -ms-flex-flow: column nowrap;
             flex-flow: column nowrap;
     position: relative;
-    top: 65%;
-    margin-left: 10px;
+    top: 60%;
+    margin: 0 20px;
   }
   .gif-container .gif-overlay .gif-info span {
     display: block;
@@ -557,4 +561,8 @@ footer .social-media .icons img:last-of-type {
 body {
   border-top: 5px solid #572ee5;
   border-bottom: 5px solid #572ee5;
+}
+
+.hide {
+  display: none;
 }
