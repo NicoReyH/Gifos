@@ -38,6 +38,21 @@
   }
 }
 
+.favorite-gifs-results {
+  @extend .gifs-results;
+  .icon-fav-nocontent {
+    margin-bottom: 20px;
+  }
+  h2 {
+    color: $green;
+    font-weight: bold;
+    margin: 0 auto;
+  }
+  .favorites-gifs-title {
+    margin-bottom: 70px;
+  }
+}
+
 .gif-container {
   height: 180px;
   width: 49%;
@@ -113,6 +128,15 @@
 
     &:hover .gif-overlay {
       visibility: visible;
+    }
+  }
+
+  .favorite-gifs-results {
+    h2 {
+      color: $green;
+      font-weight: bold;
+      max-width: 50%;
+      margin: 0 auto;
     }
   }
 }

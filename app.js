@@ -23,6 +23,9 @@ burguerMenu.addEventListener("click", showHideMenu);
 //Función para manejar errores de fetch en las funciones
 const errorHandler = (error) => console.error("Hubo un error: ", error);
 
+//Array en donde se almacenarán los Gifs que el usuario marque como favoritos
+const savedFavoriteGifs = [];
+
 //Función para crear cada Gif, agregarle el overlay con diseño e íconos y hacerle append al contenedor
 const createAndDisplayGifs = async (
   gifData,
@@ -54,6 +57,16 @@ const createAndDisplayGifs = async (
       "mouseleave",
       () => (favIcon.src = "../assets/icon-fav.svg")
     );
+    favIcon.addEventListener("click", () => {
+      savedFavoriteGifs.push(gif);
+      if (!savedFavoriteGifs.includes(gif)) {
+        localStorage.setItem("savedGifs", JSON.stringify(savedFavoriteGifs));
+        favIcon.src = "../assets/icon-fav-active.svg";
+      } else {
+        localStorage.removeItem("savedGifs");
+        favIcon.src = "../assets/icon-fav.svg";
+      }
+    });
     gifIcons.appendChild(favIcon);
     let downloadIcon = document.createElement("img");
     downloadIcon.src = "../assets/icon-download.svg";
@@ -115,6 +128,33 @@ const createAndDisplayGifs = async (
   }
 };
 
+//Función para mostrar los Gifs guardados en favoritos
+const displayFavoriteGifs = () => {
+  const section = document.querySelector(".favorite-gifs-results");
+  const gifsData = JSON.parse(localStorage.getItem("savedGifs"));
+  if (section) {
+    if (gifsData) {
+      const favoriteGifsSection = document.querySelector(
+        ".favorite-gifs-results"
+      );
+      let favoriteGifContainer = document.createElement("div");
+      favoriteGifContainer.classList.add("gifs-results-container");
+      favoriteGifsSection.appendChild(favoriteGifContainer);
+      createAndDisplayGifs(gifsData, favoriteGifContainer, favoriteGifsSection);
+    } else {
+      let icon = document.createElement("img");
+      icon.src = "./assets/icon-fav-sin-contenido.svg";
+      icon.alt = "Icono favoritos grande";
+      icon.classList.add("icon-fav-nocontent");
+      let text = document.createElement("h2");
+      text.textContent = `"¡Guarda tu primer GIFO en Favoritos para que se muestre aquí!"`;
+      section.appendChild(icon);
+      section.appendChild(text);
+    }
+  }
+};
+
+displayFavoriteGifs();
 //Función para mosrar los GIFs buscados en la barra de búsqueda
 const showSearchedGifs = async (word) => {
   const gifsResultsSection = document.querySelector(".gifs-results");
@@ -184,36 +224,42 @@ const searchAutocomplete = async () => {
 };
 
 //Listeners para ejecutar la búsqueda desde el searchbar
-searchBar.addEventListener("keyup", searchAutocomplete);
-searchBar.addEventListener("keypress", (e) => {
-  if (e.key === "Enter" && searchBar.value.length > 0) {
-    showSearchedGifs(searchBar.value);
-  }
-});
+if (searchBar) {
+  searchBar.addEventListener("keyup", searchAutocomplete);
+  searchBar.addEventListener("keypress", (e) => {
+    if (e.key === "Enter" && searchBar.value.length > 0) {
+      showSearchedGifs(searchBar.value);
+    }
+  });
+}
 
 //Función para mostrar las categorías trending (texto)
 const trendingCategories = async () => {
   const container = document.querySelector(".trending-categories");
-  try {
-    const apiCall = await fetch(`${apiUrl}trending/searches?api_key=${apiKey}`);
-    const trending = await apiCall.json();
-    trending.data.map((elem, index) => {
-      // Creando cada elemento hasta un máximo de 5 elementos. Al último no se le pone coma ","
-      if (index <= 4) {
-        const categories = document.createElement("span");
-        if (index === 4) {
-          categories.textContent = `${elem}`;
-        } else {
-          categories.textContent = `${elem}, `;
+  if (container) {
+    try {
+      const apiCall = await fetch(
+        `${apiUrl}trending/searches?api_key=${apiKey}`
+      );
+      const trending = await apiCall.json();
+      trending.data.map((elem, index) => {
+        // Creando cada elemento hasta un máximo de 5 elementos. Al último no se le pone coma ","
+        if (index <= 4) {
+          const categories = document.createElement("span");
+          if (index === 4) {
+            categories.textContent = `${elem}`;
+          } else {
+            categories.textContent = `${elem}, `;
+          }
+          categories.addEventListener("click", () => {
+            showSearchedGifs(elem);
+          });
+          container.appendChild(categories);
         }
-        categories.addEventListener("click", () => {
-          showSearchedGifs(elem);
-        });
-        container.appendChild(categories);
-      }
-    });
-  } catch (err) {
-    errorHandler(err);
+      });
+    } catch (err) {
+      errorHandler(err);
+    }
   }
 };
 

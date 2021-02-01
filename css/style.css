@@ -58,6 +58,10 @@
   color: #9cafc3;
 }
 
+#favoritos {
+  color: #9cafc3;
+}
+
 @media only screen and (min-width: 769px) {
   .burguer-menu {
     display: none;
@@ -295,25 +299,25 @@
   color: #9cafc3;
 }
 
-.gifs-results,
+.gifs-results, .favorite-gifs-results,
 .btn {
   font-family: "Montserrat", sans-serif;
   color: #572ee5;
 }
 
-.gifs-results {
+.gifs-results, .favorite-gifs-results {
   text-align: center;
   margin-top: 60px;
   margin-bottom: 40px;
 }
 
-.gifs-results h4 {
+.gifs-results h4, .favorite-gifs-results h4 {
   text-transform: capitalize;
   font-size: 1.56em;
   margin-bottom: 20px;
 }
 
-.gifs-results .gifs-results-container {
+.gifs-results .gifs-results-container, .favorite-gifs-results .gifs-results-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -327,7 +331,7 @@
   margin-bottom: 30px;
 }
 
-.gifs-results .load-more-btn {
+.gifs-results .load-more-btn, .favorite-gifs-results .load-more-btn {
   text-transform: uppercase;
   font-weight: 700;
   padding: 15px 40px;
@@ -337,14 +341,28 @@
   outline: none;
 }
 
-.gifs-results .load-more-btn:hover {
+.gifs-results .load-more-btn:hover, .favorite-gifs-results .load-more-btn:hover {
   background-color: #572ee5;
   color: #fff;
   cursor: pointer;
 }
 
-.gifs-results .load-more-btn:active {
+.gifs-results .load-more-btn:active, .favorite-gifs-results .load-more-btn:active {
   background-color: #9cafc3;
+}
+
+.favorite-gifs-results .icon-fav-nocontent {
+  margin-bottom: 20px;
+}
+
+.favorite-gifs-results h2 {
+  color: #5ed7c6;
+  font-weight: bold;
+  margin: 0 auto;
+}
+
+.favorite-gifs-results .favorites-gifs-title {
+  margin-bottom: 70px;
 }
 
 .gif-container {
@@ -430,6 +448,12 @@
   }
   .gif-container:hover .gif-overlay {
     visibility: visible;
+  }
+  .favorite-gifs-results h2 {
+    color: #5ed7c6;
+    font-weight: bold;
+    max-width: 50%;
+    margin: 0 auto;
   }
 }
 

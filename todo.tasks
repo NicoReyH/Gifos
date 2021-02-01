@@ -10,6 +10,10 @@
     ☐ Mostrar la información requerida y los íconos de favorito, expandir y descargar al hacer hover sobre un GIF. En mobile debe ser al dar click en un GIF. @critical
     ☐ Crear la funcionalidad para que al darle click al ícono de pantalla completa se vea el GIF grande junto con la información y los íconos de favorito y descargar. @critical
     ☐ Crear la funcionalidad para que al dar click en favorito, el GIF se guarde en el localStorage y el ícono cambie al estado de guardado. @critical 
+    
+Favoritos:
+    ☐ Crear la funcionalidad para que al dar click en favorito, el GIF se elimine del localStorage y el ícono cambie al estado original. @critical 
+    ☐ Solucionar el botón de 'ver más' en la página de Favoritos @high 
 
 Modo nocturno:
      ☐ Crear el modo nocturno de la página. @high

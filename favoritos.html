@@ -3,8 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GifOS!</title>
-
+    <title>Favoritos | GifOS!</title>
     <!-- GOOGLE FONTS -->
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;700;900&display=swap"
@@ -31,7 +30,7 @@
           <nav class="nav-menu">
             <ul class="nav-ul">
               <li><a href="#">Modo Nocturno</a></li>
-              <li><a href="./favoritos.html">Favoritos</a></li>
+              <li><a href="#" id="favoritos">Favoritos</a></li>
               <li><a href="#">Mis GIFOS</a></li>
               <li>
                 <a href="#"
@@ -43,35 +42,12 @@
         </div>
       </header>
 
-      <div class="title-container">
-        <h1>Inspírate, busca, guarda, y crea los mejores <span>GIFOS</span></h1>
-      </div>
-
-      <section class="search-bar-container">
-        <div class="search-bar-img">
-          <img src="./assets/ilustra_header.svg" alt="Gifos" />
-        </div>
-        <div class="search-bar">
-          <div class="search-input">
-            <input
-              type="text"
-              name="search"
-              id="search"
-              placeholder="Buscar GIFOS y más"
-            />
-            <img src="./assets/icon-search.svg" alt="Search" id="search-icon" />
-          </div>
-          <div class="autocomplete-box">
-            <ul class="autocomplete-results-list"></ul>
-          </div>
+      <section class="favorite-gifs-results">
+        <div class="favorites-gifs-title">
+          <img src="./assets/icon-favoritos.svg" alt="Icono favoritos" />
+          <h4 class="title">Favoritos</h4>
         </div>
       </section>
-
-      <section class="trending-categories">
-        <h3>Trending:</h3>
-      </section>
-
-      <section class="gifs-results"></section>
     </div>
 
     <section class="trending-gifos">
