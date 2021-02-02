@@ -38,7 +38,8 @@
   }
 }
 
-.favorite-gifs-results {
+.favorite-gifs-results,
+.mis-gifs-results {
   @extend .gifs-results;
   .icon-fav-nocontent {
     margin-bottom: 20px;

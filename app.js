@@ -49,48 +49,29 @@ const createAndDisplayGifs = async (
     let favIcon = document.createElement("img");
     favIcon.src = "../assets/icon-fav.svg";
     favIcon.alt = "Guardar Gif en favoritos";
-    favIcon.addEventListener(
-      "mouseenter",
-      () => (favIcon.src = "../assets/icon-fav-hover.svg")
-    );
-    favIcon.addEventListener(
-      "mouseleave",
-      () => (favIcon.src = "../assets/icon-fav.svg")
-    );
-    favIcon.addEventListener("click", () => {
+    favIcon.onmouseenter = () => (favIcon.src = "../assets/icon-fav-hover.svg");
+    favIcon.onmouseleave = () => (favIcon.src = "../assets/icon-fav.svg");
+    favIcon.onclick = (e) => {
       savedFavoriteGifs.push(gif);
-      if (!savedFavoriteGifs.includes(gif)) {
-        localStorage.setItem("savedGifs", JSON.stringify(savedFavoriteGifs));
-        favIcon.src = "../assets/icon-fav-active.svg";
-      } else {
-        localStorage.removeItem("savedGifs");
-        favIcon.src = "../assets/icon-fav.svg";
-      }
-    });
+      localStorage.setItem("favoriteGifs", JSON.stringify(savedFavoriteGifs));
+      favIcon.src = "../assets/icon-fav-active.svg";
+    };
     gifIcons.appendChild(favIcon);
     let downloadIcon = document.createElement("img");
     downloadIcon.src = "../assets/icon-download.svg";
     downloadIcon.alt = "Descargar Gif";
-    downloadIcon.addEventListener(
-      "mouseenter",
-      () => (downloadIcon.src = "../assets/icon-download-hover.svg")
-    );
-    downloadIcon.addEventListener(
-      "mouseleave",
-      () => (downloadIcon.src = "../assets/icon-download.svg")
-    );
+    downloadIcon.onmouseenter = () =>
+      (downloadIcon.src = "../assets/icon-download-hover.svg");
+    downloadIcon.onmouseleave = () =>
+      (downloadIcon.src = "../assets/icon-download.svg");
+
     gifIcons.appendChild(downloadIcon);
     let maxIcon = document.createElement("img");
     maxIcon.src = "../assets/icon-max-normal.svg";
     maxIcon.alt = "Ver Gif en pantalla completa";
-    maxIcon.addEventListener(
-      "mouseenter",
-      () => (maxIcon.src = "../assets/icon-max-hover.svg")
-    );
-    maxIcon.addEventListener(
-      "mouseleave",
-      () => (maxIcon.src = "../assets/icon-max-normal.svg")
-    );
+    maxIcon.onmouseenter = () => (maxIcon.src = "../assets/icon-max-hover.svg");
+    maxIcon.onmouseleave = () =>
+      (maxIcon.src = "../assets/icon-max-normal.svg");
     gifIcons.appendChild(maxIcon);
     let gifInfo = document.createElement("div");
     gifInfo.classList.add("gif-info");
@@ -128,33 +109,6 @@ const createAndDisplayGifs = async (
   }
 };
 
-//Función para mostrar los Gifs guardados en favoritos
-const displayFavoriteGifs = () => {
-  const section = document.querySelector(".favorite-gifs-results");
-  const gifsData = JSON.parse(localStorage.getItem("savedGifs"));
-  if (section) {
-    if (gifsData) {
-      const favoriteGifsSection = document.querySelector(
-        ".favorite-gifs-results"
-      );
-      let favoriteGifContainer = document.createElement("div");
-      favoriteGifContainer.classList.add("gifs-results-container");
-      favoriteGifsSection.appendChild(favoriteGifContainer);
-      createAndDisplayGifs(gifsData, favoriteGifContainer, favoriteGifsSection);
-    } else {
-      let icon = document.createElement("img");
-      icon.src = "./assets/icon-fav-sin-contenido.svg";
-      icon.alt = "Icono favoritos grande";
-      icon.classList.add("icon-fav-nocontent");
-      let text = document.createElement("h2");
-      text.textContent = `"¡Guarda tu primer GIFO en Favoritos para que se muestre aquí!"`;
-      section.appendChild(icon);
-      section.appendChild(text);
-    }
-  }
-};
-
-displayFavoriteGifs();
 //Función para mosrar los GIFs buscados en la barra de búsqueda
 const showSearchedGifs = async (word) => {
   const gifsResultsSection = document.querySelector(".gifs-results");
