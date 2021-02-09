@@ -33,11 +33,12 @@ const createAndDisplayGifs = async (
   sectionContainer
 ) => {
   gifData.map((gif, index) => {
+    let gifUrl = gif.images.original.url;
     let gifContainer = document.createElement("div");
     gifContainer.classList.add("gif-container");
     containerToAppend.appendChild(gifContainer);
     let newGif = document.createElement("img");
-    newGif.src = gif.images.original.url;
+    newGif.src = gifUrl;
     newGif.alt = "Gif";
     gifContainer.appendChild(newGif);
     let gifOverlay = document.createElement("div");
@@ -64,7 +65,24 @@ const createAndDisplayGifs = async (
       (downloadIcon.src = "../assets/icon-download-hover.svg");
     downloadIcon.onmouseleave = () =>
       (downloadIcon.src = "../assets/icon-download.svg");
-
+    downloadIcon.onclick = async () => {
+      //create new a element
+      let a = document.createElement("a");
+      // get image as blob
+      let response = await fetch(gifUrl);
+      let file = await response.blob();
+      // use download attribute https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes
+      a.download = gif.title;
+      a.href = window.URL.createObjectURL(file);
+      //store download url in javascript https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes#JavaScript_access
+      a.dataset.downloadurl = [
+        "application/octet-stream",
+        a.download,
+        a.href,
+      ].join(":");
+      //click on element to start download
+      a.click();
+    };
     gifIcons.appendChild(downloadIcon);
     let maxIcon = document.createElement("img");
     maxIcon.src = "../assets/icon-max-normal.svg";
@@ -188,7 +206,7 @@ if (searchBar) {
 }
 
 //Función para mostrar las categorías trending (texto)
-const trendingCategories = async () => {
+(async () => {
   const container = document.querySelector(".trending-categories");
   if (container) {
     try {
@@ -215,12 +233,10 @@ const trendingCategories = async () => {
       errorHandler(err);
     }
   }
-};
-
-trendingCategories();
+})();
 
 //Función para mosrar los GIFs en tendencia
-const trendingGifs = async () => {
+(async () => {
   const trendingGifsContainer = document.querySelector(
     ".trending-gifs-container"
   );
@@ -233,6 +249,4 @@ const trendingGifs = async () => {
   } catch (err) {
     errorHandler(err);
   }
-};
-
-trendingGifs();
+})();

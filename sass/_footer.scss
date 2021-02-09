@@ -8,6 +8,7 @@ footer {
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
+  align-content: center;
   text-align: center;
   font-family: $roboto;
 
@@ -23,10 +24,16 @@ footer {
     .icons {
       display: flex;
       justify-content: center;
-      img {
+      i {
+        color: $social-icons;
         margin-right: 25px;
         &:last-of-type {
           margin-right: 0;
+        }
+
+        &:hover {
+          color: $purple;
+          cursor: pointer;
         }
       }
     }
