@@ -1,4 +1,4 @@
-const displayFavoriteGifs = () => {
+(() => {
   const favoriteGifsSection = document.querySelector(".favorite-gifs-results");
   const gifsOnLocalStorage = JSON.parse(localStorage.getItem("favoriteGifs"));
 
@@ -19,6 +19,4 @@ const displayFavoriteGifs = () => {
       favoriteGifsSection.appendChild(text);
     }
   }
-};
-
-displayFavoriteGifs();
+})();

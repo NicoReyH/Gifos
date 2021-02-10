@@ -23,6 +23,28 @@ burguerMenu.addEventListener("click", showHideMenu);
 //Función para manejar errores de fetch en las funciones
 const errorHandler = (error) => console.error("Hubo un error: ", error);
 
+//Función para activar el modal
+const displayModalGif = (gifUrl, gifTitle, gifUserName) => {
+  let gif = document.querySelector("#gif-to-modal");
+  let username = document.querySelector("#modal-username");
+  let title = document.querySelector("#modal-gif-title");
+  let modal = document.querySelector(".modal");
+  let closeBtn = document.querySelector(".close-btn");
+  gif.src = gifUrl;
+  title.textContent = gifTitle;
+  username.textContent = gifUserName;
+
+  modal.style.display = "flex";
+  closeBtn.onclick = function () {
+    modal.style.display = "none";
+  };
+  window.onclick = function (e) {
+    if (e.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+};
+
 //Array en donde se almacenarán los Gifs que el usuario marque como favoritos
 const savedFavoriteGifs = [];
 
@@ -33,7 +55,7 @@ const createAndDisplayGifs = async (
   sectionContainer
 ) => {
   gifData.map((gif, index) => {
-    let gifUrl = gif.images.original.url;
+    let gifUrl = gif.images.downsized_medium.url;
     let gifContainer = document.createElement("div");
     gifContainer.classList.add("gif-container");
     containerToAppend.appendChild(gifContainer);
@@ -90,6 +112,9 @@ const createAndDisplayGifs = async (
     maxIcon.onmouseenter = () => (maxIcon.src = "../assets/icon-max-hover.svg");
     maxIcon.onmouseleave = () =>
       (maxIcon.src = "../assets/icon-max-normal.svg");
+    maxIcon.onclick = () => {
+      displayModalGif(gifUrl, gif.title, gif.username);
+    };
     gifIcons.appendChild(maxIcon);
     let gifInfo = document.createElement("div");
     gifInfo.classList.add("gif-info");
@@ -103,6 +128,9 @@ const createAndDisplayGifs = async (
     if (index > 11) {
       gifContainer.classList.add("hide");
     }
+    newGif.onclick = () => {
+      displayModalGif(gifUrl, gif.title, gif.username);
+    };
   });
 
   // Agregar botón de ver más
