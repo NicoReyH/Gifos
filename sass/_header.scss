@@ -45,12 +45,33 @@
     &:active {
       color: $active;
     }
+
+    i {
+      font-size: 16px;
+      border: 1px solid $purple;
+      border-radius: 50%;
+      padding: 18px;
+
+      &:hover {
+        color: #fff;
+        background: $purple;
+      }
+
+      &:active {
+        background-color: $active;
+      }
+    }
   }
 }
 
-#favoritos,
-#mis-gifos {
+#current-page {
   color: #9cafc3;
+}
+
+#mis-gifs {
+  background-color: $active;
+  color: #fff;
+  border: none;
 }
 
 @media only screen and (min-width: 769px) {

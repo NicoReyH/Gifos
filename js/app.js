@@ -6,10 +6,7 @@ const searchBar = document.querySelector("#search");
 //Función para cambiar el ícono del burguer menú por una X en mobile
 const showHideMenu = () => {
   const menuMobile = document.querySelector(".nav-ul");
-  if (
-    menuMobile.style.left === "-100%" &&
-    burguerMenu.getAttribute("src") === "./assets/burger.svg"
-  ) {
+  if (menuMobile.style.left == "-100%") {
     menuMobile.style.left = "0";
     burguerMenu.setAttribute("src", "./assets/close.svg");
   } else {
@@ -22,6 +19,40 @@ burguerMenu.addEventListener("click", showHideMenu);
 
 //Función para manejar errores de fetch en las funciones
 const errorHandler = (error) => console.error("Hubo un error: ", error);
+
+//Array en donde se almacenarán los Gifs que el usuario marque como favoritos
+const savedFavoriteGifs = [];
+
+//Función para agregar Gif a favoritos
+const addGifToFavorites = (gif, event) => {
+  savedFavoriteGifs.push(gif);
+  localStorage.setItem("favoriteGifs", JSON.stringify(savedFavoriteGifs));
+  if (event.target.classList.contains("far")) {
+    event.target.classList.remove("far");
+    event.target.classList.add("fas");
+  } else {
+    event.target.classList.remove("fas");
+    event.target.classList.add("far");
+  }
+};
+
+//Función para descargar GIf
+const downloadGif = async (url, title) => {
+  //create new a element
+  let a = document.createElement("a");
+  // get image as blob
+  let response = await fetch(url);
+  let file = await response.blob();
+  // use download attribute https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes
+  a.download = title;
+  a.href = window.URL.createObjectURL(file);
+  //store download url in javascript https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes#JavaScript_access
+  a.dataset.downloadurl = ["application/octet-stream", a.download, a.href].join(
+    ":"
+  );
+  //click on element to start download
+  a.click();
+};
 
 //Función para activar el modal
 const displayModalGif = (gifUrl, gifTitle, gifUserName) => {
@@ -45,9 +76,6 @@ const displayModalGif = (gifUrl, gifTitle, gifUserName) => {
   };
 };
 
-//Array en donde se almacenarán los Gifs que el usuario marque como favoritos
-const savedFavoriteGifs = [];
-
 //Función para crear cada Gif, agregarle el overlay con diseño e íconos y hacerle append al contenedor
 const createAndDisplayGifs = async (
   gifData,
@@ -69,52 +97,24 @@ const createAndDisplayGifs = async (
     let gifIcons = document.createElement("div");
     gifIcons.classList.add("gif-icons");
     gifOverlay.appendChild(gifIcons);
-    let favIcon = document.createElement("img");
-    favIcon.src = "../assets/icon-fav.svg";
-    favIcon.alt = "Guardar Gif en favoritos";
-    favIcon.onmouseenter = () => (favIcon.src = "../assets/icon-fav-hover.svg");
-    favIcon.onmouseleave = () => (favIcon.src = "../assets/icon-fav.svg");
-    favIcon.onclick = (e) => {
-      savedFavoriteGifs.push(gif);
-      localStorage.setItem("favoriteGifs", JSON.stringify(savedFavoriteGifs));
-      favIcon.src = "../assets/icon-fav-active.svg";
-    };
+    let favIcon = document.createElement("i");
+    favIcon.classList.add("far", "fa-heart");
+    favIcon.onclick = (e) => addGifToFavorites(gif, e);
     gifIcons.appendChild(favIcon);
-    let downloadIcon = document.createElement("img");
-    downloadIcon.src = "../assets/icon-download.svg";
-    downloadIcon.alt = "Descargar Gif";
-    downloadIcon.onmouseenter = () =>
-      (downloadIcon.src = "../assets/icon-download-hover.svg");
-    downloadIcon.onmouseleave = () =>
-      (downloadIcon.src = "../assets/icon-download.svg");
-    downloadIcon.onclick = async () => {
-      //create new a element
-      let a = document.createElement("a");
-      // get image as blob
-      let response = await fetch(gifUrl);
-      let file = await response.blob();
-      // use download attribute https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes
-      a.download = gif.title;
-      a.href = window.URL.createObjectURL(file);
-      //store download url in javascript https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes#JavaScript_access
-      a.dataset.downloadurl = [
-        "application/octet-stream",
-        a.download,
-        a.href,
-      ].join(":");
-      //click on element to start download
-      a.click();
-    };
+    let downloadIcon = document.createElement("i");
+    downloadIcon.classList.add("fas", "fa-download");
+    downloadIcon.onclick = () => downloadGif(gifUrl, gif.title);
     gifIcons.appendChild(downloadIcon);
-    let maxIcon = document.createElement("img");
-    maxIcon.src = "../assets/icon-max-normal.svg";
-    maxIcon.alt = "Ver Gif en pantalla completa";
-    maxIcon.onmouseenter = () => (maxIcon.src = "../assets/icon-max-hover.svg");
-    maxIcon.onmouseleave = () =>
-      (maxIcon.src = "../assets/icon-max-normal.svg");
-    maxIcon.onclick = () => {
+    let maxIcon = document.createElement("i");
+    maxIcon.classList.add("fas", "fa-expand-alt");
+    const modalFunctionality = () => {
       displayModalGif(gifUrl, gif.title, gif.username);
+      let likeBtn = document.querySelector("#modal-like-btn");
+      let downloadBtn = document.querySelector("#modal-download-btn");
+      likeBtn.onclick = () => addGifToFavorites(gif);
+      downloadBtn.onclick = () => downloadGif(gifUrl, gif.title);
     };
+    maxIcon.onclick = () => modalFunctionality();
     gifIcons.appendChild(maxIcon);
     let gifInfo = document.createElement("div");
     gifInfo.classList.add("gif-info");
@@ -129,7 +129,7 @@ const createAndDisplayGifs = async (
       gifContainer.classList.add("hide");
     }
     newGif.onclick = () => {
-      displayModalGif(gifUrl, gif.title, gif.username);
+      modalFunctionality();
     };
   });
 
@@ -268,13 +268,15 @@ if (searchBar) {
   const trendingGifsContainer = document.querySelector(
     ".trending-gifs-container"
   );
-  try {
-    const apiCall = await fetch(
-      `${apiUrl}gifs/trending?limit=3&rating=g&api_key=${apiKey}`
-    );
-    const trendingGifs = await apiCall.json();
-    await createAndDisplayGifs(trendingGifs.data, trendingGifsContainer);
-  } catch (err) {
-    errorHandler(err);
+  if (trendingGifsContainer) {
+    try {
+      const apiCall = await fetch(
+        `${apiUrl}gifs/trending?limit=3&rating=g&api_key=${apiKey}`
+      );
+      const trendingGifs = await apiCall.json();
+      await createAndDisplayGifs(trendingGifs.data, trendingGifsContainer);
+    } catch (err) {
+      errorHandler(err);
+    }
   }
 })();

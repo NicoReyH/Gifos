@@ -1,0 +1,101 @@
+.gifs-creation-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 77.9vh;
+  margin: -70px 0 70px 0;
+
+  .camera-images {
+    display: flex;
+    align-items: center;
+    flex-basis: 1%;
+  }
+}
+
+.main-column {
+  display: flex;
+  flex-flow: column nowrap;
+  flex-basis: fill;
+  .outer-frame {
+    margin: 0 auto;
+    border: 2px solid $purple;
+    padding: 10px;
+    flex-basis: 60%;
+    margin-bottom: 15px;
+
+    .inner-frame {
+      border: 1px solid $green;
+      padding: 150px 80px;
+      text-align: center;
+
+      h3 {
+        font-family: $montserrat;
+        font-size: 25px;
+        font-weight: 700;
+        color: $purple;
+        margin-bottom: 5px;
+      }
+
+      p {
+        font-family: $roboto;
+      }
+    }
+  }
+
+  .numbers {
+    text-align: center;
+    font-family: $roboto;
+    font-weight: 700;
+    margin-bottom: 20px;
+    .number {
+      color: $purple;
+      border: 1px solid $purple;
+      border-radius: 50%;
+      padding: 3px 8px;
+      margin-right: 20px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .line {
+    height: 5px;
+    background-color: $purple;
+    width: 100%;
+    border-radius: 25%;
+    margin-bottom: 20px;
+  }
+
+  .start-btn {
+    margin: 0 auto;
+    padding: 15px 40px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: $purple;
+    background-color: #fff;
+    border: 1px solid $purple;
+    border-radius: 35px;
+    outline: none;
+    &:hover {
+      background-color: $purple;
+      color: #fff;
+      cursor: pointer;
+    }
+    &:active {
+      background-color: $active;
+    }
+  }
+}
+
+img.movie-image {
+  position: relative;
+  top: 20%;
+  left: 2%;
+}
+
+#green-word {
+  color: $green;
+  text-transform: uppercase;
+}

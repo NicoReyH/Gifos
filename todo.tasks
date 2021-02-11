@@ -1,7 +1,7 @@
  Home page:
     ☐ Fixear el menú en mobile. (Actualmente hay que hacer doble click para que salga el menú. Revisar diseño [borders LI elements]) @high
-    ☐ Cuando no haya resultados en la búsqueda, mostrar la imagen correspondiente.
-    ☐ Hacer que los íconos de redes sociales cambien de imagen al hacer hover. @low
+    ☐ Cuando no haya resultados en la búsqueda, mostrar la imagen correspondiente. @high 
+    ✔ Hacer que los íconos de redes sociales cambien de imagen al hacer hover. @low @done (2/11/2021, 4:13:42 PM)
     ✔ Crear la funcionalidad junto con el diseño de la barra de búsqueda. @critical @done (11/26/2020, 11:26:15 AM)
     ☐ Cuando la barra de búsqueda vuelva a estar vacía al borrar letras, hacer que el ícono de búsqueda aparezca en vez de la X. @low
     ✔ Hacer que se muestren los GIFs según lo puesto en la barra de búsqueda. @critical @done (11/26/2020, 1:53:21 PM)
@@ -13,8 +13,14 @@
     
 Favoritos:
    ☐ Solucionar el botón de 'ver más' en la página de Favoritos @high 
+   ☐ Solucionar el agregar a favoritos para evitar duplicidad de Gifs @high 
+   ☐ Hacer que los Gifs agregados a favoritos tengan el ícono de favorito activado @high 
+   ☐ Hacer que al dar click al Gif, se quite de favoritos @low 
 
 Modo nocturno:
-     ☐ Crear el modo nocturno de la página. @high
+   ☐ Crear el modo nocturno de la página. @high
+
+Crear Gifs:
+   ☐ Crear el layout de la página para crear los propios Gifs @today  
 
     

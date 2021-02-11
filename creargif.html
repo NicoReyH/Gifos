@@ -2,8 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Favoritos | GifOS!</title>
+    <title>Crear Gif | GifOS!</title>
     <!-- GOOGLE FONTS -->
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;700;900&display=swap"
@@ -37,31 +38,49 @@
           <nav class="nav-menu">
             <ul class="nav-ul">
               <li><a href="#">Modo Nocturno</a></li>
-              <li><a href="#" id="current-page">Favoritos</a></li>
+              <li><a href="./favoritos.html">Favoritos</a></li>
               <li><a href="./misgifos.html">Mis GIFOS</a></li>
               <li>
-                <a href="./creargif.html"><i class="fas fa-plus"></i></a>
+                <a href="#"><i class="fas fa-plus" id="mis-gifs"></i></a>
               </li>
             </ul>
           </nav>
         </div>
       </header>
-
-      <section class="favorite-gifs-results">
-        <div class="favorites-gifs-title">
-          <img src="./assets/icon-favoritos.svg" alt="Icono favoritos" />
-          <h4 class="title">Favoritos</h4>
-        </div>
-      </section>
     </div>
 
-    <section class="trending-gifos">
-      <div class="container">
-        <h2>Trending GIFOS</h2>
-        <p>Mira los últimos GIFOS de nuestra comunidad</p>
-        <div class="trending-gifs-container"></div>
-      </div>
-    </section>
+    <div class="container">
+      <section class="gifs-creation-section">
+        <div class="camera-images">
+          <img src="./assets/camara.svg" alt="Camera image" />
+          <img src="./assets/Path 2.svg" alt="Camera light" />
+        </div>
+        <div class="main-column">
+          <div class="outer-frame">
+            <div class="inner-frame">
+              <h3>
+                Aquí podrás crear tus propios <span id="green-word">Gifos</span>
+              </h3>
+              <p>
+                ¡Crea tu GIFO en solo tres pasos! <br />(solo nececitas una
+                cámara para grabar un video)
+              </p>
+            </div>
+          </div>
+          <div class="numbers">
+            <span class="number">1</span><span class="number">2</span
+            ><span class="number">3</span>
+          </div>
+          <div class="line"></div>
+          <button class="start-btn">Comenzar</button>
+        </div>
+        <img
+          src="./assets/pelicula.svg"
+          alt="Movie image"
+          class="movie-image"
+        />
+      </section>
+    </div>
 
     <div class="container">
       <footer>
@@ -76,8 +95,7 @@
         <p>© GIFOS 2021 All Rights Reserved.</p>
       </footer>
     </div>
-
     <script src="./js/app.js"></script>
-    <script src="./js/favoritos.js"></script>
+    <script src="./js/creargif.js"></script>
   </body>
 </html>
