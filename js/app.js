@@ -21,7 +21,10 @@ burguerMenu.addEventListener("click", showHideMenu);
 const errorHandler = (error) => console.error("Hubo un error: ", error);
 
 //Array en donde se almacenarán los Gifs que el usuario marque como favoritos
-const savedFavoriteGifs = [];
+const savedFavoriteGifs =
+  JSON.parse(localStorage.getItem("favoriteGifs")) === null
+    ? []
+    : JSON.parse(localStorage.getItem("favoriteGifs"));
 
 //Función para agregar Gif a favoritos
 const addGifToFavorites = (gif, event) => {

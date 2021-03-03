@@ -654,8 +654,13 @@ footer .social-media .icons i:hover {
 
 .main-column .outer-frame .inner-frame {
   border: 1px solid #5ed7c6;
-  padding: 150px 80px;
+  padding: 0px 80px 80px 80px;
   text-align: center;
+}
+
+.main-column .outer-frame .inner-frame img {
+  height: 360px;
+  width: 640px;
 }
 
 .main-column .outer-frame .inner-frame h3 {
@@ -675,6 +680,15 @@ footer .social-media .icons i:hover {
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   margin-bottom: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.main-column .numbers .pagination {
+  -ms-flex-preferred-size: 100%;
+      flex-basis: 100%;
+  margin-right: -50px;
 }
 
 .main-column .numbers .number {
@@ -689,6 +703,17 @@ footer .social-media .icons i:hover {
   margin-right: 0;
 }
 
+.main-column .numbers .number-active {
+  color: #fff;
+  background-color: #572ee5;
+}
+
+.main-column .numbers .seconds {
+  color: #572ee5;
+  text-align: right;
+  display: none;
+}
+
 .main-column .line {
   height: 5px;
   background-color: #572ee5;
@@ -697,7 +722,7 @@ footer .social-media .icons i:hover {
   margin-bottom: 20px;
 }
 
-.main-column .start-btn {
+.main-column .btn {
   margin: 0 auto;
   padding: 15px 40px;
   font-weight: 700;
@@ -709,14 +734,20 @@ footer .social-media .icons i:hover {
   outline: none;
 }
 
-.main-column .start-btn:hover {
+.main-column .btn:hover {
   background-color: #572ee5;
   color: #fff;
   cursor: pointer;
 }
 
-.main-column .start-btn:active {
+.main-column .btn:active {
   background-color: #9cafc3;
+}
+
+.main-column #btn-record,
+.main-column #btn-stop-record,
+.main-column #btn-upload {
+  display: none;
 }
 
 img.movie-image {

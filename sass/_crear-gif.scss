@@ -25,8 +25,13 @@
 
     .inner-frame {
       border: 1px solid $green;
-      padding: 150px 80px;
+      padding: 0px 80px 80px 80px;
       text-align: center;
+
+      img {
+        height: 360px;
+        width: 640px;
+      }
 
       h3 {
         font-family: $montserrat;
@@ -47,6 +52,11 @@
     font-family: $roboto;
     font-weight: 700;
     margin-bottom: 20px;
+    display: flex;
+    .pagination {
+      flex-basis: 100%;
+      margin-right: -50px;
+    }
     .number {
       color: $purple;
       border: 1px solid $purple;
@@ -58,6 +68,17 @@
         margin-right: 0;
       }
     }
+
+    .number-active {
+      color: #fff;
+      background-color: $purple;
+    }
+
+    .seconds {
+      color: $purple;
+      text-align: right;
+      display: none;
+    }
   }
 
   .line {
@@ -68,7 +89,7 @@
     margin-bottom: 20px;
   }
 
-  .start-btn {
+  .btn {
     margin: 0 auto;
     padding: 15px 40px;
     font-weight: 700;
@@ -86,6 +107,12 @@
     &:active {
       background-color: $active;
     }
+  }
+
+  #btn-record,
+  #btn-stop-record,
+  #btn-upload {
+    display: none;
   }
 }
 
