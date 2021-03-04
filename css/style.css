@@ -750,6 +750,25 @@ footer .social-media .icons i:hover {
   display: none;
 }
 
+.main-column .success-msg,
+.main-column .error-msg {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 3px 3px 3px 3px;
+}
+
+.main-column .success-msg {
+  color: #270;
+  background-color: #dff2bf;
+  display: none;
+}
+
+.main-column .error-msg {
+  color: #d8000c;
+  background-color: #ffbaba;
+  display: none;
+}
+
 img.movie-image {
   position: relative;
   top: 20%;

@@ -21,7 +21,7 @@ let options = {
 let cantidadFavoritosGuardados = 0;
 let intervalID;
 
-function init() {
+const init = () => {
   try {
     navigator.getUserMedia =
       navigator.getUserMedia ||
@@ -56,9 +56,9 @@ function init() {
   } else {
     window.alert("Your browser does not support recording, try Google Chrome");
   }
-}
+};
 
-function record() {
+const record = () => {
   recordRTC.startRecording();
   seconds.style.display = "block";
   btnRecord.style.display = "none";
@@ -73,9 +73,9 @@ function record() {
     }
     n++;
   }, 1000);
-}
+};
 
-function stop() {
+const stop = () => {
   recordRTC.stopRecording(function () {
     const img = document.createElement("img");
     innerFrame.appendChild(img);
@@ -87,30 +87,43 @@ function stop() {
   window.clearInterval(intervalID);
   btnStopRecord.style.display = "none";
   btnUpload.style.display = "block";
-  btnUpload.addEventListener("click", uploadGif);
-}
-
-function uploadGif() {
   numberTwo.classList.remove("number-active");
   numberThree.classList.add("number-active");
+  btnUpload.addEventListener("click", uploadGif);
+};
+
+const uploadGif = async () => {
+  btnUpload.style.fontSize = "20px";
+  btnUpload.innerHTML = '<i class="fas fa-spinner fa-spin fa-sw"></i>';
+  let successMsg = document.querySelector(".success-msg");
+  let errorMsg = document.querySelector(".error-msg");
   let formData = new FormData();
   formData.append("file", recordRTC.getBlob(), "myGif.gif");
-  let finalGif = formData.get("file");
-  console.log(finalGif);
-
-  fetch(`https://upload.giphy.com/v1/gifs?api_key=${apiKey}`, {
-    method: "POST",
-    body: formData,
-  })
-    .then((res) => res.json())
-    .then((data) =>
-      localStorage.setItem(
-        "favoritos" + cantidadFavoritosGuardados,
-        data.data.id
-      )
+  try {
+    const apiCall = await fetch(
+      `https://upload.giphy.com/v1/gifs?api_key=${apiKey}`,
+      {
+        method: "POST",
+        body: formData,
+      }
     );
-  btnUpload.style.display = "none";
-}
+    const resp = await apiCall.json();
+    localStorage.setItem("favoritos", resp.data.id);
+    if (resp.meta.status === 200) {
+      successMsg.style.display = "block";
+      btnUpload.style.display = "none";
+    }
+  } catch (err) {
+    errorMsg.style.display = "block";
+    btnUpload.removeEventListener("click", uploadGif);
+    btnUpload.textContent = "reintentar";
+    btnUpload.style.fontSize = "13.3px";
+    btnUpload.addEventListener("click", () => {
+      location.reload();
+      return false;
+    });
+  }
+};
 
 function load() {
   img.src = videoURL;
