@@ -92,6 +92,11 @@ const stop = () => {
   btnUpload.addEventListener("click", uploadGif);
 };
 
+const createdGifs =
+  JSON.parse(localStorage.getItem("createdGifs")) === null
+    ? []
+    : JSON.parse(localStorage.getItem("createdGifs"));
+
 const uploadGif = async () => {
   btnUpload.style.fontSize = "20px";
   btnUpload.innerHTML = '<i class="fas fa-spinner fa-spin fa-sw"></i>';
@@ -108,7 +113,8 @@ const uploadGif = async () => {
       }
     );
     const resp = await apiCall.json();
-    localStorage.setItem("favoritos", resp.data.id);
+    createdGifs.push(resp.data.id);
+    localStorage.setItem("createdGifs", JSON.stringify(createdGifs));
     if (resp.meta.status === 200) {
       successMsg.style.display = "block";
       btnUpload.style.display = "none";

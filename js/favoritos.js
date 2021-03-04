@@ -2,6 +2,8 @@
   const favoriteGifsSection = document.querySelector(".favorite-gifs-results");
   const gifsOnLocalStorage = JSON.parse(localStorage.getItem("favoriteGifs"));
 
+  //Recuperar los gifs IDs del localStorage y hacer fetch como en misgifs.js para mostrar los gifs guardados. Verificar que no se repitan y agregarles el ícono de favorito.
+
   if (favoriteGifsSection) {
     if (gifsOnLocalStorage) {
       let favoriteGifContainer = document.createElement("div");

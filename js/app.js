@@ -29,6 +29,7 @@ const savedFavoriteGifs =
 //Función para agregar Gif a favoritos
 const addGifToFavorites = (gif, event) => {
   savedFavoriteGifs.push(gif);
+  //Guardar el id de los gifs en vez de todo el objeto
   localStorage.setItem("favoriteGifs", JSON.stringify(savedFavoriteGifs));
   if (event.target.classList.contains("far")) {
     event.target.classList.remove("far");
