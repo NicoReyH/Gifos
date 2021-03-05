@@ -1,27 +1,31 @@
-let myGifs = JSON.parse(localStorage.getItem("createdGifs")).map((id) => id);
-console.log(myGifs.join());
+const section = document.querySelector(".mis-gifs-results");
+let myGifsfromLocalStorage =
+  JSON.parse(localStorage.getItem("createdGifs")) === null
+    ? []
+    : JSON.parse(localStorage.getItem("createdGifs"));
 
 const getMyGifs = async () => {
   const getData = await fetch(
-    `${apiUrl}gifs?ids=${myGifs.join()}&api_key=${apiKey}`
+    `${apiUrl}gifs?ids=${myGifsfromLocalStorage.join()}&api_key=${apiKey}`
   );
   const gifs = await getData.json();
-  console.log(gifs);
-  //Crear los gifs y mostrarlos con la data que viene del fetch
-
-  //Hacer el if/else para mostrar los Gifs creados o lo que ya está creado abajo
+  let myGifsGifContainer = document.createElement("div");
+  myGifsGifContainer.classList.add("gifs-results-container");
+  section.appendChild(myGifsGifContainer);
+  createAndDisplayGifs(gifs.data, myGifsGifContainer);
 };
 
 (() => {
-  const section = document.querySelector(".mis-gifs-results");
-  let icon = document.createElement("img");
-  icon.src = "./assets/icon-mis-gifos-sin-contenido.svg";
-  icon.alt = "Icono mis favoritos";
-  icon.classList.add("icon-fav-nocontent");
-  let text = document.createElement("h2");
-  text.textContent = `¡Anímate a crear tu propio GIFO!`;
-  section.appendChild(icon);
-  section.appendChild(text);
-
-  getMyGifs();
+  if (myGifsfromLocalStorage.length > 0) {
+    getMyGifs();
+  } else {
+    let icon = document.createElement("img");
+    icon.src = "./assets/icon-mis-gifos-sin-contenido.svg";
+    icon.alt = "Icono mis favoritos";
+    icon.classList.add("icon-fav-nocontent");
+    let text = document.createElement("h2");
+    text.textContent = `¡Anímate a crear tu propio GIFO!`;
+    section.appendChild(icon);
+    section.appendChild(text);
+  }
 })();

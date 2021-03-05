@@ -27,17 +27,13 @@ const savedFavoriteGifs =
     : JSON.parse(localStorage.getItem("favoriteGifs"));
 
 //Función para agregar Gif a favoritos
-const addGifToFavorites = (gif, event) => {
-  savedFavoriteGifs.push(gif);
-  //Guardar el id de los gifs en vez de todo el objeto
-  localStorage.setItem("favoriteGifs", JSON.stringify(savedFavoriteGifs));
-  if (event.target.classList.contains("far")) {
+const addGifToFavorites = (gifID, event) => {
+  if (!savedFavoriteGifs.includes(gifID)) {
+    savedFavoriteGifs.push(gifID);
     event.target.classList.remove("far");
     event.target.classList.add("fas");
-  } else {
-    event.target.classList.remove("fas");
-    event.target.classList.add("far");
   }
+  localStorage.setItem("favoriteGifs", JSON.stringify(savedFavoriteGifs));
 };
 
 //Función para descargar GIf
@@ -102,8 +98,11 @@ const createAndDisplayGifs = async (
     gifIcons.classList.add("gif-icons");
     gifOverlay.appendChild(gifIcons);
     let favIcon = document.createElement("i");
-    favIcon.classList.add("far", "fa-heart");
-    favIcon.onclick = (e) => addGifToFavorites(gif, e);
+    favIcon.classList.add(
+      `${savedFavoriteGifs.includes(gif.id) ? "fas" : "far"}`,
+      "fa-heart"
+    );
+    favIcon.onclick = (e) => addGifToFavorites(gif.id, e);
     gifIcons.appendChild(favIcon);
     let downloadIcon = document.createElement("i");
     downloadIcon.classList.add("fas", "fa-download");
@@ -115,7 +114,7 @@ const createAndDisplayGifs = async (
       displayModalGif(gifUrl, gif.title, gif.username);
       let likeBtn = document.querySelector("#modal-like-btn");
       let downloadBtn = document.querySelector("#modal-download-btn");
-      likeBtn.onclick = () => addGifToFavorites(gif);
+      likeBtn.onclick = (e) => addGifToFavorites(gif.id, e);
       downloadBtn.onclick = () => downloadGif(gifUrl, gif.title);
     };
     maxIcon.onclick = () => modalFunctionality();
