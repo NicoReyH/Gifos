@@ -4,6 +4,6 @@
 
 ---
 
-This is an app built in HTMlL, SASS (CSS), vanilla JavaScript and powered by **Giphy**
+This app is built in HTMlL, SASS (CSS), vanilla JavaScript and powered by **Giphy**
 
-Watch live here [here](https://nicoreyh.github.io/Gifos)
+Watch live [here](https://nicoreyh.github.io/Gifos)
