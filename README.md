@@ -6,6 +6,8 @@ This app is built in HTMlL, SASS (CSS), vanilla JavaScript and powered by **Giph
 
 ---
 
-You can search for Gifs, save them to favorites and create and upload your owns to **Giphy** (Dark mode available)
+You can search for Gifs, save them to favorites and create and upload your own to **Giphy**
+
+_Dark mode is available_
 
 Watch live [here](https://nicoreyh.github.io/Gifos)!
