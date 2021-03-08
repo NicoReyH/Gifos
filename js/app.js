@@ -4,21 +4,35 @@ const burguerMenuIcon = document.querySelector("#burguer-menu-icon");
 const searchBar = document.querySelector("#search");
 const darkModeBtn = document.querySelector("#dark-mode-btn");
 const logo = document.querySelector("#logo");
+let isDarkMode = localStorage.getItem("isDarkMode");
+
+//Función para manejar los cambios del modo nocturno
+const darkMode = () => {
+  let currentTheme = document.documentElement.getAttribute("data-theme");
+  let switchToTheme = currentTheme === "dark" ? "light" : "dark";
+  if (switchToTheme === "dark") {
+    darkModeBtn.textContent = "modo diurno";
+    logo.src = "./assets/logo-mobile-modo-noct.svg";
+    localStorage.setItem("isDarkMode", "Yes");
+  } else {
+    darkModeBtn.textContent = "modo nocturno";
+    logo.src = "./assets/logo-mobile.svg";
+    localStorage.removeItem("isDarkMode");
+  }
+  document.documentElement.setAttribute("data-theme", switchToTheme);
+};
+
+window.onload = () => {
+  if (isDarkMode === "Yes") {
+    document.documentElement.setAttribute("data-theme", "dark");
+    darkModeBtn.textContent = "modo diurno";
+    logo.src = "./assets/logo-mobile-modo-noct.svg";
+  }
+};
 
 document.addEventListener("DOMContentLoaded", function () {
   document.documentElement.setAttribute("data-theme", "light");
-  darkModeBtn.onclick = function () {
-    let currentTheme = document.documentElement.getAttribute("data-theme");
-    let switchToTheme = currentTheme === "dark" ? "light" : "dark";
-    if (switchToTheme === "dark") {
-      darkModeBtn.textContent = "modo diurno";
-      logo.src = "./assets/logo-mobile-modo-noct.svg";
-    } else {
-      darkModeBtn.textContent = "modo nocturno";
-      logo.src = "./assets/logo-mobile.svg";
-    }
-    document.documentElement.setAttribute("data-theme", switchToTheme);
-  };
+  darkModeBtn.onclick = () => darkMode();
 });
 
 //Función para cambiar el ícono del burguer menú por una X en mobile

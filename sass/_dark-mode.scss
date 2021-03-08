@@ -94,6 +94,26 @@
     }
   }
 
+  .modal {
+    background-color: $dark-light-bg;
+    color: $white;
+
+    .modal-content {
+      .modal-footer {
+        .modal-icons {
+          color: $green;
+          // i {
+
+          // }
+        }
+      }
+    }
+
+    .close-btn {
+      color: $green;
+    }
+  }
+
   .main-column {
     .outer-frame {
       border: 2px solid $white;
