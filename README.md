@@ -10,4 +10,6 @@ You can search for Gifs, see trendings, save gifs to favorites and create and up
 
 _Dark mode is available_
 
+_Some features are still in development_
+
 Watch live [here](https://nicoreyh.github.io/Gifos)!
