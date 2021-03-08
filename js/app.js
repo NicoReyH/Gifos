@@ -1,21 +1,41 @@
 const apiKey = "DvB6aHwl4IkDw8dILVK69iWTbwQjvM5D";
 const apiUrl = "https://api.giphy.com/v1/";
-const burguerMenu = document.querySelector(".burguer-menu");
+const burguerMenuIcon = document.querySelector("#burguer-menu-icon");
 const searchBar = document.querySelector("#search");
+const darkModeBtn = document.querySelector("#dark-mode-btn");
+const logo = document.querySelector("#logo");
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.documentElement.setAttribute("data-theme", "light");
+  darkModeBtn.onclick = function () {
+    let currentTheme = document.documentElement.getAttribute("data-theme");
+    let switchToTheme = currentTheme === "dark" ? "light" : "dark";
+    if (switchToTheme === "dark") {
+      darkModeBtn.textContent = "modo diurno";
+      logo.src = "./assets/logo-mobile-modo-noct.svg";
+    } else {
+      darkModeBtn.textContent = "modo nocturno";
+      logo.src = "./assets/logo-mobile.svg";
+    }
+    document.documentElement.setAttribute("data-theme", switchToTheme);
+  };
+});
 
 //Función para cambiar el ícono del burguer menú por una X en mobile
 const showHideMenu = () => {
   const menuMobile = document.querySelector(".nav-ul");
-  if (menuMobile.style.left == "-100%") {
+  if (burguerMenuIcon.classList.contains("fa-bars")) {
     menuMobile.style.left = "0";
-    burguerMenu.setAttribute("src", "./assets/close.svg");
+    burguerMenuIcon.classList.remove("fa-bars");
+    burguerMenuIcon.classList.add("fa-times");
   } else {
     menuMobile.style.left = "-100%";
-    burguerMenu.setAttribute("src", "./assets/burger.svg");
+    burguerMenuIcon.classList.remove("fa-times");
+    burguerMenuIcon.classList.add("fa-bars");
   }
 };
 
-burguerMenu.addEventListener("click", showHideMenu);
+burguerMenuIcon.addEventListener("click", showHideMenu);
 
 //Función para manejar errores de fetch en las funciones
 const errorHandler = (error) => console.error("Hubo un error: ", error);
@@ -184,8 +204,10 @@ const showSearchedGifs = async (word) => {
 };
 //Función de autocompletado de texto y búsqueda de Gifs en la barra de búsqueda
 const searchAutocomplete = async () => {
+  const searchIcon = document.querySelector("#search-icon");
   const autoCompleteBox = document.querySelector(".autocomplete-box");
   autoCompleteBox.innerHTML = "";
+  searchIcon.style.cursor = "pointer";
   //Creando el UL que contendrá los términos de autocompletado
   let autoCompleteResultsList = document.createElement("ul");
   autoCompleteResultsList.classList.add("autocomplete-results-list");
@@ -195,10 +217,15 @@ const searchAutocomplete = async () => {
       `${apiUrl}gifs/search/tags?lang=es&q=${searchBar.value}&api_key=${apiKey}`
     );
     const autoCompleteWords = await apiCall.json();
-    //Creando el icono de lupa para cada término nuevo
-    let searchIcon = document.querySelector("#search-icon");
-    searchIcon.setAttribute("src", "./assets/close.svg");
-    searchIcon.style.cursor = "pointer";
+
+    if (searchBar.value.length > 0) {
+      searchIcon.classList.remove("fa-search");
+      searchIcon.classList.add("fa-times");
+    } else {
+      searchIcon.classList.remove("fa-times");
+      searchIcon.classList.add("fa-search");
+      searchIcon.style.cursor = "default";
+    }
     //Creando cada elemento LI por cada término de autocompletado y añadiendo el ícono de lupa
     autoCompleteWords.data.map((word) => {
       let autocompleteSearchIcon = document.createElement("img");
@@ -217,8 +244,9 @@ const searchAutocomplete = async () => {
     //Función para eliminar los resultados y lo escrito en el searchBar y cambiando el ícono por la lupa
     searchIcon.addEventListener("click", () => {
       searchBar.value = "";
+      searchIcon.classList.remove("fa-times");
+      searchIcon.classList.add("fa-search");
       autoCompleteResultsList.remove();
-      searchIcon.setAttribute("src", "./assets/icon-search.svg");
       searchIcon.style.cursor = "default";
     });
   } catch (err) {

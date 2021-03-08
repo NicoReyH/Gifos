@@ -11,10 +11,6 @@
   margin-bottom: 30px;
 }
 
-.burguer-menu {
-  width: 1.5em;
-}
-
 .nav-ul {
   font-family: $montserrat;
   font-size: 1em;
@@ -35,9 +31,20 @@
     &:last-of-type {
       border: none;
     }
+
+    button {
+      background: none;
+      text-transform: uppercase;
+      outline: none;
+      border: none;
+      font-family: $montserrat;
+      font-size: 1rem;
+      cursor: pointer;
+    }
   }
 
-  a {
+  a,
+  button {
     color: $purple;
     text-decoration: none;
     font-weight: bold;
@@ -75,8 +82,10 @@
 }
 
 @media only screen and (min-width: 769px) {
-  .burguer-menu {
-    display: none;
+  .burguer-menu-container {
+    i.burguer-menu {
+      display: none;
+    }
   }
 }
 
@@ -87,6 +96,12 @@
 }
 
 @media only screen and (max-width: $min-desktop) {
+  .burguer-menu-container {
+    i {
+      font-size: 2rem;
+      color: $purple;
+    }
+  }
   .nav-ul {
     justify-content: flex-start;
     flex-flow: column;
@@ -99,7 +114,6 @@
     background-color: $purple;
     opacity: 0.9;
     text-align: center;
-    transition: 0.5s all ease-in;
 
     li {
       margin: 0 auto;
@@ -114,7 +128,8 @@
         display: none;
       }
 
-      a {
+      a,
+      button {
         color: #fff;
         text-decoration: none;
         padding: 15px 30px;

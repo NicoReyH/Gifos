@@ -24,19 +24,17 @@
       <header class="header uppercase">
         <div class="logo">
           <a href="./index.html"
-            ><img src="./assets/logo-mobile.svg" alt="GifOS logo"
+            ><img src="./assets/logo-mobile.svg" alt="GifOS logo" id="logo"
           /></a>
         </div>
         <div class="burguer-menu-container">
-          <img
-            src="./assets/burger.svg"
-            alt="burguer-menu"
-            class="burguer-menu"
-          />
+          <i class="burguer-menu fas fa-bars" id="burguer-menu-icon"></i>
 
           <nav class="nav-menu">
-            <ul class="nav-ul">
-              <li><a href="#">Modo Nocturno</a></li>
+            <ul class="nav-ul transition">
+              <li>
+                <button id="dark-mode-btn">modo nocturno</button>
+              </li>
               <li><a href="./favoritos.html">Favoritos</a></li>
               <li><a href="./misgifos.html">Mis GIFOS</a></li>
               <li>
@@ -63,7 +61,7 @@
               id="search"
               placeholder="Buscar GIFOS y más"
             />
-            <img src="./assets/icon-search.svg" alt="Search" id="search-icon" />
+            <i class="search-icon fas fa-search" id="search-icon"></i>
           </div>
           <div class="autocomplete-box">
             <ul class="autocomplete-results-list"></ul>
@@ -81,7 +79,7 @@
     <div class="modal">
       <span class="close-btn">&times;</span>
       <div class="modal-content">
-        <img src="" alt="Gif by Giphy" id="gif-to-modal" />
+        <img src="empty" alt="Gif by Giphy" id="gif-to-modal" />
         <div class="modal-footer">
           <div class="gif-info">
             <span id="modal-username"></span><span id="modal-gif-title"></span>
@@ -94,7 +92,7 @@
       </div>
     </div>
 
-    <section class="trending-gifos">
+    <section class="trending-gifos transition">
       <div class="container">
         <h2>Trending GIFOS</h2>
         <p>Mira los últimos GIFOS de nuestra comunidad</p>

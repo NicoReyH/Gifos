@@ -24,19 +24,15 @@
       <header class="header uppercase">
         <div class="logo">
           <a href="./index.html"
-            ><img src="./assets/logo-mobile.svg" alt="GifOS logo"
+            ><img src="./assets/logo-mobile.svg" alt="GifOS logo" id="logo"
           /></a>
         </div>
         <div class="burguer-menu-container">
-          <img
-            src="./assets/burger.svg"
-            alt="burguer-menu"
-            class="burguer-menu"
-          />
+          <i class="burguer-menu fas fa-bars" id="burguer-menu-icon"></i>
 
           <nav class="nav-menu">
-            <ul class="nav-ul">
-              <li><a href="#">Modo Nocturno</a></li>
+            <ul class="nav-ul transition">
+              <li><button id="dark-mode-btn">modo nocturno</button></li>
               <li><a href="./favoritos.html">Favoritos</a></li>
               <li><a href="#" id="current-page">Mis GIFOS</a></li>
               <li>
@@ -71,7 +67,7 @@
       </div>
     </div>
 
-    <section class="trending-gifos">
+    <section class="trending-gifos transition">
       <div class="container">
         <h2>Trending GIFOS</h2>
         <p>Mira los últimos GIFOS de nuestra comunidad</p>

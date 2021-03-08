@@ -99,10 +99,10 @@
     border: 1px solid $purple;
     border-radius: 35px;
     outline: none;
+    cursor: pointer;
     &:hover {
       background-color: $purple;
       color: #fff;
-      cursor: pointer;
     }
     &:active {
       background-color: $active;
